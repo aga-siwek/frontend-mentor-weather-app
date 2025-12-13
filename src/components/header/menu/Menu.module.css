@@ -1,0 +1,30 @@
+.menu_container {
+    position: relative;
+
+}
+
+.menu_button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: calc(6rem / 16);
+    width: calc(89rem / 16);
+    height: calc(33rem / 16);
+    background-color: var(--color_9_transparent);
+    border: 0;
+    border-radius: 6px;
+    padding: calc(8rem / 16) calc(10rem / 16);
+    cursor: pointer;
+}
+
+.menu_icon {
+    width: calc(16rem / 16);
+    height: calc(16rem / 16);
+}
+
+.menu_text {
+    font-size: calc(14rem / 16);
+    line-height: 120%;
+    color: var(--color_7);
+}

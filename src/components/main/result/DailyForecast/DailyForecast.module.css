@@ -1,0 +1,19 @@
+.daily_forecast_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: calc(20rem/16)
+}
+.daily_forecast_header_text {
+    font-size: calc(20rem/16);
+    font-weight: 600;
+    color: var(--color_7);
+    line-height: 120%;
+}
+.daily_forecast_boxes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: calc(16rem/16)
+}

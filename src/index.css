@@ -1,0 +1,47 @@
+:root {
+  /*Neutral 900*/
+  --color_1: hsl(243, 96%, 9%);
+  /*Neutral 800*/
+  --color_2: hsl(243, 27%, 20%);
+  /*Neutral 700*/
+  --color_3: hsl(243, 23%, 24%);
+  /*Neutral 600*/
+  --color_4: hsl(243, 23%, 30%);
+  /*Neutral 300*/
+  --color_5: hsl(240, 6%, 70%);
+  /*Neutral 200*/
+  --color_6: hsl(250, 6%, 84%);
+  /*Neutral 0*/
+  --color_7: hsl(0, 0%, 100%);
+  /*Orange 500*/
+  --color_8: hsl(28, 100%, 52%);
+  /*Blue 500*/
+  --color_9: hsl(233, 67%, 56%);
+  /*Blue 700*/
+  --color_10: hsl(248, 70%, 36%);
+    /*Black*/
+    --color_11: hsl(0, 0%, 0%);
+    --color_11_transparent: hsla(0, 0%, 0%, 0.25);
+}
+
+.dm-sans {
+            font-family: "DM Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+          }
+
+.bricolage-grotesque {
+                        font-family: "Bricolage Grotesque", sans-serif;
+                        font-optical-sizing: auto;
+                        font-style: normal;
+                        font-variation-settings:
+                                "wdth" 100;
+                      }
+
+body {
+background: var(--color_1);
+  font-family: "DM Sans", sans-serif;
+}
+
+
+

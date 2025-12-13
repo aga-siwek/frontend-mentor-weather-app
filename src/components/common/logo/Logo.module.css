@@ -1,0 +1,5 @@
+.logo_container {}
+.logo_svg {
+    width: calc(137rem/16);
+    height: calc(28rem/16);
+}

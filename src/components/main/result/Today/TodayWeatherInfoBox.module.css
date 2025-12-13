@@ -1,0 +1,23 @@
+.today_weather_info_box_container {
+    display: flex;
+    flex-direction: column;
+    gap: calc(24rem / 16);
+    background: var(--color_4);
+    border: 1px solid var(--color_2);
+    border-radius: 12px;
+    padding: calc(20rem/16);
+    width: 47%;
+}
+
+.box_header_text {
+    font-size: calc(18rem / 16);
+    line-height: 120%;
+    color: var(--color_7);
+    font-weight: 300;
+}
+
+.box_result_text {
+    font-size: calc(25rem/16);
+    line-height: 120%;
+    color: var(--color_7)
+}
