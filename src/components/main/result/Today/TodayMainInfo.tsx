@@ -29,13 +29,23 @@ function TodayMainInfo({openMeteoWeatherInfo, openMeteoGeoInfo, onSearchPlace, m
     const todayDay = today.getDate()
     const todayMonth = today.getMonth()
     const todayYear = today.getFullYear();
-    const todayPrecipitationCalculation = () => {
+
+    const todayWeatherCodeCalculation = () => {
         if (openMeteoWeatherInfo) {
-            return (openMeteoWeatherInfo.current.precipitation)
+            return (openMeteoWeatherInfo.current.weather_code)
         } else {
             return 1000
         }
     }
+
+    const todayIsDayCalculation = () => {
+        if (openMeteoWeatherInfo) {
+            return (openMeteoWeatherInfo.current.is_day)
+        } else {
+            return 0
+        }
+    }
+
     const todayTemperatureCalculation = () => {
         if (openMeteoWeatherInfo) {
             if(measureType==="METRIC") {
@@ -46,52 +56,60 @@ function TodayMainInfo({openMeteoWeatherInfo, openMeteoGeoInfo, onSearchPlace, m
                 const metricTemp = openMeteoWeatherInfo.current.temperature_2m
                 const imperialTemp = Math.round((metricTemp*1.8) + 32)
                 return imperialTemp.toString()
-
             }
         } else {
             return "None"
         }
     }
-    const todayPrecipitation = todayPrecipitationCalculation()
+
     const todayTemperature = todayTemperatureCalculation()
+    const todayWeatherCode = todayWeatherCodeCalculation()
+    const todayIsDay = todayIsDayCalculation()
 
     const getIcon = () => {
-        if (todayPrecipitation == null) return "undefined";
+        if (todayWeatherCode == null) return null;
 
+        // Clear / Clouds
+        if (todayWeatherCode === 0)
+            return <img src={todayIsDay?sunnyIcon:overcastIcon} className={styles.icon_svg} alt="clear sky" />;
 
-        if (todayPrecipitation === 0) return <img src={sunnyIcon} className={styles.icon_svg} alt="sunny icon"/>;
-        else if (todayPrecipitation >= 1 && todayPrecipitation <= 2) return <img src={partlyCloudyIcon}
-                                                                                 className={styles.icon_svg}
-                                                                                 alt="partly cloudy icon"/>;
-        else if (todayPrecipitation === 3) return <img src={overcastIcon} className={styles.icon_svg}
-                                                       alt="overcast icon"/>;
-        else if (todayPrecipitation >= 4 && todayPrecipitation <= 9) return <img src={fogIcon}
-                                                                                 className={styles.icon_svg}
-                                                                                 alt="fog icon"/>;
-        else if (todayPrecipitation >= 10 && todayPrecipitation <= 39) return <img src={fogIcon}
-                                                                                   className={styles.icon_svg}
-                                                                                   alt="fog icon"/>;
-        else if (todayPrecipitation >= 40 && todayPrecipitation <= 49) return <img src={drizzleIcon}
-                                                                                   className={styles.icon_svg}
-                                                                                   alt="drizzle icon"/>;
-        else if (todayPrecipitation >= 50 && todayPrecipitation <= 59) return <img src={rainIcon}
-                                                                                   className={styles.icon_svg}
-                                                                                   alt="rain icon"/>;
-        else if (todayPrecipitation >= 60 && todayPrecipitation <= 67) return <img src={snowIcon}
-                                                                                   className={styles.icon_svg}
-                                                                                   alt="snow icon"/>;
-        else if (todayPrecipitation >= 68 && todayPrecipitation <= 79) return <img src={rainIcon}
-                                                                                   className={styles.icon_svg}
-                                                                                   alt="rain icon"/>;
-        else if (todayPrecipitation >= 80 && todayPrecipitation <= 84) return <img src={snowIcon}
-                                                                                   className={styles.icon_svg}
-                                                                                   alt="snow icon"/>;
-        else if (todayPrecipitation >= 85 && todayPrecipitation <= 89) return <img src={rainIcon}
-                                                                                   className={styles.icon_svg}
-                                                                                   alt="rain icon"/>;
-        else if (todayPrecipitation >= 90) return <img src={stormIcon} className={styles.icon_svg} alt="storm icon"/>;
-        else return <img src={overcastIcon} className={styles.icon_svg} alt="overcast icon"/>;
+        if (todayWeatherCode === 1 || todayWeatherCode === 2)
+            return <img src={todayIsDay?partlyCloudyIcon:overcastIcon} className={styles.icon_svg} alt="partly cloudy" />;
+
+        if (todayWeatherCode === 3)
+            return <img src={overcastIcon} className={styles.icon_svg} alt="overcast" />;
+
+        // Fog
+        if (todayWeatherCode >= 45 && todayWeatherCode <= 48)
+            return <img src={fogIcon} className={styles.icon_svg} alt="fog" />;
+
+        // Drizzle
+        if (todayWeatherCode >= 51 && todayWeatherCode <= 57)
+            return <img src={drizzleIcon} className={styles.icon_svg} alt="drizzle" />;
+
+        // Rain
+        if (todayWeatherCode >= 61 && todayWeatherCode <= 67)
+            return <img src={rainIcon} className={styles.icon_svg} alt="rain" />;
+
+        // Snow
+        if (todayWeatherCode >= 71 && todayWeatherCode <= 77)
+            return <img src={snowIcon} className={styles.icon_svg} alt="snow" />;
+
+        // Rain showers
+        if (todayWeatherCode >= 80 && todayWeatherCode <= 82)
+            return <img src={rainIcon} className={styles.icon_svg} alt="rain showers" />;
+
+        // Snow showers
+        if (todayWeatherCode >= 85 && todayWeatherCode <= 86)
+            return <img src={snowIcon} className={styles.icon_svg} alt="snow showers" />;
+
+        // Thunderstorm
+        if (todayWeatherCode >= 95)
+            return <img src={stormIcon} className={styles.icon_svg} alt="thunderstorm" />;
+
+        return <img src={overcastIcon} className={styles.icon_svg} alt="unknown weather" />;
     };
+
     const firstResult = openMeteoGeoInfo?.results?.[0];
     const checkResult = () => {
         if (!firstResult) {

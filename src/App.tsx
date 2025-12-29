@@ -39,8 +39,6 @@ function App() {
     const [apiGeoInfo, setApiGeoInfo] = useState<OpenMeteoGeoApiUtils>()
     const [failStatus, setFailStatus] = useState<boolean>(false);
 
-
-
     const onFailStatusChange = (status: boolean) => {
         setFailStatus(status);
     }
@@ -70,9 +68,11 @@ function App() {
         setMenuIsOpen(false)
     }
 
-
     const onSearchPlace = async (place: string): Promise<void> => {
         setSearchPlace(place);
+    }
+
+    const getApiData = async () => {
         const dataOpenMeteoGeo = await onSearchOpenMeteoGeo({searchPlace, onFailStatusChange})
         if (!Object.keys(dataOpenMeteoGeo).includes("results")) {
             setFailStatus(true)
@@ -85,6 +85,7 @@ function App() {
         await setApiWeatherInfo(dataOpenMeteoWeather)
         console.log(dataOpenMeteoWeather)
     }
+
 
     const onSwitchMeasure = (measure: MeasureType): void => {
         if (measure === "IMPERIAL") {
@@ -101,6 +102,13 @@ function App() {
         onSearchPlace(searchPlace)
     }
 
+    useEffect(() => {
+        getApiData()
+    }, [searchPlace])
+    useEffect(()=>{
+        console.log("change days of week", dayOfWeek)
+    }, [dayOfWeek])
+
     return (
         <div className="container">
             <Header
@@ -108,22 +116,22 @@ function App() {
                 onMenuClick={onMenuClick}
                 onSwitchMeasure={onSwitchMeasure}
                 measureType={measureType}
-                onMenuClose = {onMenuClose}
+                onMenuClose={onMenuClose}
             />
             <Main
                 onSearchPlace={onSearchPlace}
                 searchPlace={searchPlace}
                 openMeteoWeatherInfo={apiWeatherInfo}
                 openMeteoGeoInfo={apiGeoInfo}
-                measureType = {measureType}
-                onMenuClose = {onMenuClose}
-                dayOfWeek = {dayOfWeek}
-                onDayOfWeekChange = {onDayOfWeekChange}
-                onDaysClick = {onDaysClick}
-
+                measureType={measureType}
+                onMenuClose={onMenuClose}
+                dayOfWeek={dayOfWeek}
+                onDayOfWeekChange={onDayOfWeekChange}
+                onDaysClick={onDaysClick}
             />
         </div>
     )
 }
+
 
 export default App

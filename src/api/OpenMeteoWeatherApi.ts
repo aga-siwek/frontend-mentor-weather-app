@@ -67,8 +67,9 @@ async function OnSearchOpenMeteoWeather({
                                             lat,
                                             lon,
                                         }: ApiProps): Promise<OpenMeteoWeatherApiUtils> {
-
-    const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,wind_speed_10m&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m`);
+    const link = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,wind_speed_10m,weather_code,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m,weather_code,is_day,`
+    console.log(link);
+    const response = await fetch(link);
 
     if (response.status === 404) {
         onFailStatusChange(true)

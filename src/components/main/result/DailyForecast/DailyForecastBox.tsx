@@ -8,38 +8,50 @@ import rainIcon from "../../../../assets/icon-sunny.webp";
 import snowIcon from "../../../../assets/icon-snow.webp";
 import stormIcon from "../../../../assets/icon-storm.webp";
 
-function DailyForecastBox({minTemp, maxTemp, precipitation, day, measureType}: {
+function DailyForecastBox({minTemp, maxTemp, day, measureType, weatherCode}: {
     minTemp: number,
     maxTemp: number,
-    precipitation: number,
     day: number,
     measureType: string
+    weatherCode: number,
 }) {
     const getIcon = () => {
-        if (precipitation == null) return "undefined";
-        if (precipitation === 0) return <img src={sunnyIcon} className={styles.icon_svg} alt="sunny icon"/>;
-        else if (precipitation >= 1 && precipitation <= 2) return <img src={partlyCloudyIcon}
-                                                                       className={styles.icon_svg}
-                                                                       alt="partly cloudy icon"/>;
-        else if (precipitation === 3) return <img src={overcastIcon} className={styles.icon_svg} alt="overcast icon"/>;
-        else if (precipitation >= 4 && precipitation <= 9) return <img src={fogIcon} className={styles.icon_svg}
-                                                                       alt="fog icon"/>;
-        else if (precipitation >= 10 && precipitation <= 39) return <img src={fogIcon} className={styles.icon_svg}
-                                                                         alt="fog icon"/>;
-        else if (precipitation >= 40 && precipitation <= 49) return <img src={drizzleIcon} className={styles.icon_svg}
-                                                                         alt="drizzle icon"/>;
-        else if (precipitation >= 50 && precipitation <= 59) return <img src={rainIcon} className={styles.icon_svg}
-                                                                         alt="rain icon"/>;
-        else if (precipitation >= 60 && precipitation <= 67) return <img src={snowIcon} className={styles.icon_svg}
-                                                                         alt="snow icon"/>;
-        else if (precipitation >= 68 && precipitation <= 79) return <img src={rainIcon} className={styles.icon_svg}
-                                                                         alt="rain icon"/>;
-        else if (precipitation >= 80 && precipitation <= 84) return <img src={snowIcon} className={styles.icon_svg}
-                                                                         alt="snow icon"/>;
-        else if (precipitation >= 85 && precipitation <= 89) return <img src={rainIcon} className={styles.icon_svg}
-                                                                         alt="rain icon"/>;
-        else if (precipitation >= 90) return <img src={stormIcon} className={styles.icon_svg} alt="storm icon"/>;
-        else return <img src={overcastIcon} className={styles.icon_svg} alt="overcast icon"/>;
+        if (weatherCode == null) return null;
+
+        switch (true) {
+            case weatherCode === 0:
+                return <img src={sunnyIcon} className={styles.icon_svg} alt="clear sky" />;
+
+            case weatherCode === 1 || weatherCode === 2:
+                return <img src={partlyCloudyIcon} className={styles.icon_svg} alt="partly cloudy" />;
+
+            case weatherCode === 3:
+                return <img src={overcastIcon} className={styles.icon_svg} alt="overcast" />;
+
+            case weatherCode >= 45 && weatherCode <= 48:
+                return <img src={fogIcon} className={styles.icon_svg} alt="fog" />;
+
+            case weatherCode >= 51 && weatherCode <= 57:
+                return <img src={drizzleIcon} className={styles.icon_svg} alt="drizzle" />;
+
+            case weatherCode >= 61 && weatherCode <= 67:
+                return <img src={rainIcon} className={styles.icon_svg} alt="rain" />;
+
+            case weatherCode >= 71 && weatherCode <= 77:
+                return <img src={snowIcon} className={styles.icon_svg} alt="snow" />;
+
+            case weatherCode >= 80 && weatherCode <= 82:
+                return <img src={rainIcon} className={styles.icon_svg} alt="rain showers" />;
+
+            case weatherCode >= 85 && weatherCode <= 86:
+                return <img src={snowIcon} className={styles.icon_svg} alt="snow showers" />;
+
+            case weatherCode >= 95:
+                return <img src={stormIcon} className={styles.icon_svg} alt="thunderstorm" />;
+
+            default:
+                return <img src={overcastIcon} className={styles.icon_svg} alt="unknown weather" />;
+        }
     };
 
     const weekDays: Record<number, string> = {
@@ -82,6 +94,7 @@ function DailyForecastBox({minTemp, maxTemp, precipitation, day, measureType}: {
             <div className={styles.daily_forecast_box_temp}>
                 <div className={styles.daily_forecast_box_temp_minmax}>{`${minTempCalculation()}°`}</div>
                 <div className={styles.daily_forecast_box_temp_minmax}>{`${maxTempCalculation()}°`}</div>
+                <div className={styles.daily_forecast_box_temp_minmax}>{`${weatherCode}weather code`}</div>
             </div>
         </div>)
 }

@@ -34,6 +34,16 @@ function DailyForecast({openMeteoWeatherInfo, measureType}) {
         }
     }
 
+    const weeklyWeatherCodeCalculation = () => {
+        if (openMeteoWeatherInfo) {
+            return (openMeteoWeatherInfo.daily.weather_code)
+        } else {
+            return "None"
+        }
+    }
+
+
+
     const daysOnWeek = (i:number) => {
         const dailyDayNumber = dayNumber + i
         if (dailyDayNumber <= 7) {
@@ -45,9 +55,12 @@ function DailyForecast({openMeteoWeatherInfo, measureType}) {
     const weeklyMinTemp = weeklyMinTempCalculation()
     const weeklyMaxTemp = weeklyMaxTempCalculation()
     const weeklyPrecipitation = weeklyPrecipitationCalculation()
+    const weeklyWeatherCode = weeklyWeatherCodeCalculation()
+
+
 
     const showBoxes = () => {
-        if (weeklyMinTemp !== "None" && weeklyMaxTemp !== "None" && weeklyPrecipitation !== "None") {
+        if (weeklyMinTemp !== "None" && weeklyMaxTemp !== "None" && weeklyPrecipitation !== "None" && weeklyWeatherCode !== "None") {
             const indices = Array.from({ length: 7 }, (_, i) => i); // [0, 1, 2, 3, 4, 5, 6]
 
             return indices.map(i => (
@@ -55,9 +68,9 @@ function DailyForecast({openMeteoWeatherInfo, measureType}) {
                     key={i}
                     minTemp={weeklyMinTemp[i]}
                     maxTemp={weeklyMaxTemp[i]}
-                    precipitation={weeklyPrecipitation[i]}
                     day={daysOnWeek(i)}
                     measureType={measureType}
+                    weatherCode = {weeklyWeatherCode[i]}
                 />
             ));
         }

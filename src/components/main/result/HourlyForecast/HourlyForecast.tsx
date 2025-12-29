@@ -25,6 +25,28 @@ function HourlyForecast({openMeteoWeatherInfo, measureType, dayOfWeek, onDaysCli
         }
     }
 
+    const weeklyHourlyWeatherCode
+        = () => {
+        if (openMeteoWeatherInfo) {
+            return (openMeteoWeatherInfo.hourly.weather_code
+
+            )
+        } else {
+            return "None"
+        }
+    }
+
+    const weeklyHourlyIsDay
+        = () => {
+        if (openMeteoWeatherInfo) {
+            return (openMeteoWeatherInfo.hourly.is_day
+
+            )
+        } else {
+            return "None"
+        }
+    }
+
     const weeklyHourlyTemp
         = () => {
         if (openMeteoWeatherInfo) {
@@ -34,9 +56,15 @@ function HourlyForecast({openMeteoWeatherInfo, measureType, dayOfWeek, onDaysCli
             return "None"
         }
     }
+    console.log("weeklyHourlyWeatherCode", weeklyHourlyWeatherCode)
 
     const allHourlyPrecipitation: number[] = weeklyHourlyPrecipitation()
     const allHourlyTemp: number[] = weeklyHourlyTemp()
+    const allHourlyWeatherCode: number[] = weeklyHourlyWeatherCode()
+    const allHourlyIsDay: number[] = weeklyHourlyIsDay()
+
+    console.log("all hourly is day", allHourlyIsDay)
+    console.log("allHourlyWeatherCode", allHourlyWeatherCode)
 
 
     const today = new Date();
@@ -58,10 +86,11 @@ function HourlyForecast({openMeteoWeatherInfo, measureType, dayOfWeek, onDaysCli
         }
     }
 
-    const daysTemp = {}
     const hours: number = 24
     const dailyTempList: number[] = []
     const dailyPrecipitationList: number[] = []
+    const dailyWeatherCodeList: number[] = []
+    const dailyIsDayList: number[] = []
 
 
     const seperateToDays = (myCurrentList, newList) => {
@@ -74,22 +103,36 @@ function HourlyForecast({openMeteoWeatherInfo, measureType, dayOfWeek, onDaysCli
 
     seperateToDays(allHourlyTemp, dailyTempList)
     seperateToDays(allHourlyPrecipitation, dailyPrecipitationList)
+    seperateToDays(allHourlyWeatherCode, dailyWeatherCodeList)
+    seperateToDays(allHourlyIsDay, dailyIsDayList)
+
+    console.log("dailyWeatherCodeList", dailyWeatherCodeList)
+    console.log("dailyIsDayList", dailyIsDayList)
 
     const showHourlyResult = () => {
         const dayIndex = daysDifference(); // policz raz
         const temps = dailyTempList[dayIndex];
         const precs = dailyPrecipitationList[dayIndex];
+        const weatherCodes = dailyWeatherCodeList[dayIndex];
+        const isDays = dailyIsDayList[dayIndex];
+
+        console.log("weatherCode", weatherCodes)
+
 
         if (!Array.isArray(temps)) return null;
 
         return temps.map((temp, i) => {
-            const precipitation = precs?.[i] ?? 0;
+            const precipitation: number = precs?.[i] ?? 0;
+            const weatherCode: number = weatherCodes?.[i] ?? 0;
+            const isDay: number = isDays?.[i] ?? 0
             return (
                 <HourlyForecastBox
                     key={i}
                     hourlyTemp={temp}
                     hourlyPrecipitation={precipitation}
                     time = {i}
+                    weatherCode={weatherCode}
+                    isDay={isDay}
                 />
             );
         });

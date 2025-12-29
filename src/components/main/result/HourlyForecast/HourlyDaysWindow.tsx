@@ -1,6 +1,6 @@
 import styles from "./HourlyDaysWindows.module.css"
 
-function HourlyDaysWindows(onDaysClick, onDayOfWeekChange) {
+function HourlyDaysWindows({onDaysClick, onDayOfWeekChange}) {
     const weekDays: Record<number, string> = {
         1: "Monday",
         2: "Tuesday",
