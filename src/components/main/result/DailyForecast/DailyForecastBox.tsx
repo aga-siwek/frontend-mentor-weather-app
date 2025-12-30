@@ -94,7 +94,6 @@ function DailyForecastBox({minTemp, maxTemp, day, measureType, weatherCode}: {
             <div className={styles.daily_forecast_box_temp}>
                 <div className={styles.daily_forecast_box_temp_minmax}>{`${minTempCalculation()}°`}</div>
                 <div className={styles.daily_forecast_box_temp_minmax}>{`${maxTempCalculation()}°`}</div>
-                <div className={styles.daily_forecast_box_temp_minmax}>{`${weatherCode}weather code`}</div>
             </div>
         </div>)
 }

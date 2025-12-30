@@ -1,8 +1,18 @@
 import styles from "./HourlyForecast.module.css"
 import HourlyDaysWindow from "./HourlyDaysWindow.tsx";
 import HourlyForecastBox from "./HourlyForecastBox.tsx";
+import dropDownIcon from "../../../../assets/icon-dropdown.svg"
 
-function HourlyForecast({openMeteoWeatherInfo, measureType, dayOfWeek, onDaysClick, onDayOfWeekChange}) {
+function HourlyForecast({
+                            openMeteoWeatherInfo,
+                            measureType,
+                            dayOfWeek,
+                            onDaysClick,
+                            onDayOfWeekChange,
+                            windowIsOpen,
+                            onWindowClick,
+                            closeWindow
+                        }) {
 
     const weekDays: Record<number, string> = {
         1: "Monday",
@@ -19,7 +29,7 @@ function HourlyForecast({openMeteoWeatherInfo, measureType, dayOfWeek, onDaysCli
         if (openMeteoWeatherInfo) {
             return (openMeteoWeatherInfo.hourly.precipitation_probability
 
-        )
+            )
         } else {
             return "None"
         }
@@ -56,16 +66,11 @@ function HourlyForecast({openMeteoWeatherInfo, measureType, dayOfWeek, onDaysCli
             return "None"
         }
     }
-    console.log("weeklyHourlyWeatherCode", weeklyHourlyWeatherCode)
 
     const allHourlyPrecipitation: number[] = weeklyHourlyPrecipitation()
     const allHourlyTemp: number[] = weeklyHourlyTemp()
     const allHourlyWeatherCode: number[] = weeklyHourlyWeatherCode()
     const allHourlyIsDay: number[] = weeklyHourlyIsDay()
-
-    console.log("all hourly is day", allHourlyIsDay)
-    console.log("allHourlyWeatherCode", allHourlyWeatherCode)
-
 
     const today = new Date();
     const currentDayNumber = today.getDay();
@@ -78,11 +83,10 @@ function HourlyForecast({openMeteoWeatherInfo, measureType, dayOfWeek, onDaysCli
         // if we have Saturday 6 and we have Tuesday[2] = 3 => 7-6+2
         // if we have Tuesday 2 and wendesday 3 = 1 => 3-2
 
-        if (dayOfWeek>=currentDayNumber) {
-            return dayOfWeek-currentDayNumber
-        }
-        else {
-            return ((7-currentDayNumber)+dayOfWeek)
+        if (dayOfWeek >= currentDayNumber) {
+            return dayOfWeek - currentDayNumber
+        } else {
+            return ((7 - currentDayNumber) + dayOfWeek)
         }
     }
 
@@ -106,17 +110,12 @@ function HourlyForecast({openMeteoWeatherInfo, measureType, dayOfWeek, onDaysCli
     seperateToDays(allHourlyWeatherCode, dailyWeatherCodeList)
     seperateToDays(allHourlyIsDay, dailyIsDayList)
 
-    console.log("dailyWeatherCodeList", dailyWeatherCodeList)
-    console.log("dailyIsDayList", dailyIsDayList)
-
     const showHourlyResult = () => {
         const dayIndex = daysDifference(); // policz raz
         const temps = dailyTempList[dayIndex];
         const precs = dailyPrecipitationList[dayIndex];
         const weatherCodes = dailyWeatherCodeList[dayIndex];
         const isDays = dailyIsDayList[dayIndex];
-
-        console.log("weatherCode", weatherCodes)
 
 
         if (!Array.isArray(temps)) return null;
@@ -130,7 +129,7 @@ function HourlyForecast({openMeteoWeatherInfo, measureType, dayOfWeek, onDaysCli
                     key={i}
                     hourlyTemp={temp}
                     hourlyPrecipitation={precipitation}
-                    time = {i}
+                    time={i}
                     weatherCode={weatherCode}
                     isDay={isDay}
                 />
@@ -142,12 +141,14 @@ function HourlyForecast({openMeteoWeatherInfo, measureType, dayOfWeek, onDaysCli
         <div className={styles.hourly_forecast_container}>
             <div className={styles.hourly_forecast_header}>
                 <h3 className={styles.hourly_forecast_header_text}>Hourly forecast</h3>
-                <div className={styles.hourly_forecast_header_day}>
-                    {weekDays[dayOfWeek]}
+                <div className={styles.hourly_forecast_header_day} onClick={()=> onWindowClick()}>
+                    <div className={styles.hourly_forecast_day_name}>{weekDays[dayOfWeek]}</div>
+                    <img src={dropDownIcon} alt="dropDownIcon" className={styles.hourly_forecast_day_icon}/>
                 </div>
             </div>
-            <div className={styles.hourly_forecast_boxes}>{showHourlyResult()}</div>
-            <HourlyDaysWindow onDaysClick={onDaysClick} onDayOfWeekChange={onDayOfWeekChange}/>
+            <div className={styles.hourly_forecast_boxes} onClick={()=> closeWindow()}>{showHourlyResult()}</div>
+            <HourlyDaysWindow onDaysClick={onDaysClick} onDayOfWeekChange={onDayOfWeekChange}
+                              windowIsOpen={windowIsOpen} closeWindow={closeWindow}/>
         </div>)
 }
 

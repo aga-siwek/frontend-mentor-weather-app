@@ -1,6 +1,6 @@
-import styles from "./HourlyDaysWindows.module.css"
+import styles from "./HourlyDaysWindow.module.css"
 
-function HourlyDaysWindows({onDaysClick, onDayOfWeekChange}) {
+function HourlyDaysWindows({onDaysClick, onDayOfWeekChange, windowIsOpen, closeWindow}) {
     const weekDays: Record<number, string> = {
         1: "Monday",
         2: "Tuesday",
@@ -22,6 +22,16 @@ function HourlyDaysWindows({onDaysClick, onDayOfWeekChange}) {
         return dailyDayNumber - 7
     }
 
+    const windowStyle = () => {
+        if (windowIsOpen) {
+            return styles.window_show
+        }
+        else if (!windowIsOpen) {
+            return styles.window_hidden
+        }
+    }
+
+
     const showDays = () =>
         Object.keys(weekDays).map((_, i) => (
             <div className={styles.hourly_forecast_box_day} onClick={() => onDayOfWeekChange(weekDays[daysOnWeek(i)])}>
@@ -30,7 +40,7 @@ function HourlyDaysWindows({onDaysClick, onDayOfWeekChange}) {
         ));
 
     return (
-        <div className={styles.hourly_forecast_box_container}>
+        <div className={`${styles.hourly_forecast_box_container} ${windowStyle()}`} >
             {showDays()}
         </div>)
 }

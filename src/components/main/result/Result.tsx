@@ -3,7 +3,7 @@ import DailyForecast from "./DailyForecast/DailyForecast.tsx";
 import Today from "./Today/Today.tsx";
 import HourlyForecast from "./HourlyForecast/HourlyForecast.tsx";
 
-function Result({openMeteoWeatherInfo, openMeteoGeoInfo, onSearchPlace, measureType, dayOfWeek, onDayOfWeekChange, onDaysClick}) {
+function Result({openMeteoWeatherInfo, openMeteoGeoInfo, onSearchPlace, measureType, dayOfWeek, onDayOfWeekChange, onDaysClick, windowIsOpen, onWindowClick, closeWindow}) {
     return (
         <div className={styles.result_container}>
             <Today openMeteoWeatherInfo={openMeteoWeatherInfo}
@@ -12,7 +12,15 @@ function Result({openMeteoWeatherInfo, openMeteoGeoInfo, onSearchPlace, measureT
                    measureType = {measureType}
             />
             <DailyForecast openMeteoWeatherInfo={openMeteoWeatherInfo} measureType = {measureType}/>
-            <HourlyForecast openMeteoWeatherInfo={openMeteoWeatherInfo} measureType = {measureType} dayOfWeek={dayOfWeek} onDaysClick={onDaysClick} onDayOfWeekChange={onDayOfWeekChange}/>
+            <HourlyForecast
+                openMeteoWeatherInfo={openMeteoWeatherInfo}
+                measureType = {measureType}
+                dayOfWeek={dayOfWeek}
+                onDaysClick={onDaysClick}
+                onDayOfWeekChange={onDayOfWeekChange}
+                windowIsOpen={windowIsOpen}
+                onWindowClick={onWindowClick}
+                closeWindow={closeWindow}/>
         </div>)
 }
 

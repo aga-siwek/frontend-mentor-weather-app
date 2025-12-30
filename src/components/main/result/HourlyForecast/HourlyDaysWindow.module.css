@@ -1,31 +1,44 @@
 .hourly_forecast_box_container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    gap: calc(4rem/16);
+    gap: calc(4rem / 16);
     background: var(--color_2);
     border: 1px solid var(--color_3);
     border-radius: 12px;
-    padding: calc(8rem/16);
+    padding: calc(8rem / 16);
+    position: absolute;
+    left: 60%;
+    top: 60px;
 }
 
 .hourly_forecast_box_day {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-    padding: calc(8rem/16) calc(10rem/16);
+    padding: calc(8rem / 16) calc(10rem / 16);
     width: 100%;
     border: 0;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .hourly_forecast_box_day_text {
-    color: var( --color_7);
-    font-size: calc(16rem/16);
+    color: var(--color_7);
+    font-size: calc(16rem / 16);
     line-height: 120%
 }
 
+
 .hourly_forecast_box_day:hover {
     background: var(--color_3);
+}
+
+.window_show {
+    display: block;
+}
+
+.window_hidden {
+    display: none;
 }

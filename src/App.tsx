@@ -38,9 +38,18 @@ function App() {
     const [apiWeatherInfo, setApiWeatherInfo] = useState<OpenMeteoWeatherApiUtils>()
     const [apiGeoInfo, setApiGeoInfo] = useState<OpenMeteoGeoApiUtils>()
     const [failStatus, setFailStatus] = useState<boolean>(false);
+    const [windowIsOpen, setWindowIsOpen] = useState<boolean>(false);
 
     const onFailStatusChange = (status: boolean) => {
         setFailStatus(status);
+    }
+
+    const onWindowClick = () => {
+        setWindowIsOpen(!windowIsOpen)
+    }
+
+    const closeWindow = () => {
+        setWindowIsOpen(false)
     }
 
     const onDaysClick = (): void => {
@@ -59,6 +68,7 @@ function App() {
         }
 
         setDayOfWeek(weekDays[day])
+        closeWindow()
     }
     const onMenuClick = (): void => {
         setMenuIsOpen(!menuIsOpen)
@@ -85,7 +95,6 @@ function App() {
         await setApiWeatherInfo(dataOpenMeteoWeather)
         console.log(dataOpenMeteoWeather)
     }
-
 
     const onSwitchMeasure = (measure: MeasureType): void => {
         if (measure === "IMPERIAL") {
@@ -128,6 +137,9 @@ function App() {
                 dayOfWeek={dayOfWeek}
                 onDayOfWeekChange={onDayOfWeekChange}
                 onDaysClick={onDaysClick}
+                windowIsOpen={windowIsOpen}
+                onWindowClick={onWindowClick}
+                closeWindow={closeWindow}
             />
         </div>
     )

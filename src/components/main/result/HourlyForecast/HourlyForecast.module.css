@@ -2,20 +2,54 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: start;
-    background: var(--color_4);
+    justify-content: space-between;
+    background: var(--color_2);
     border: 0;
     border-radius: 20px;
     width: 100%;
     padding: calc(20rem/16) calc(16rem/16);
+    border-radius: calc(20rem/16);
+    width: 100%;
+    position: relative;
+}
+
+.hourly_forecast_header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 
 }
-.hourly_forecast_header {}
+
 .hourly_forecast_header_text {
     font-size: calc(20rem/16);
     font-weight: 600;
     color: var(--color_7);
     line-height: 120%;
 }
-.hourly_forecast_header_day {}
+
+.hourly_forecast_header_day {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(8rem/16) calc(16rem/16);
+    gap: calc(8rem/16);
+    background: var(--color_4);
+    border-radius: calc(8rem/16);
+}
+
+.hourly_forecast_day_name {
+    font-size: calc(16rem/16);
+    color: var(--color_7);
+}
+
+.hourly_forecast_day_icon {
+    width: calc(12rem/16);
+    height: calc(18rem/16);
+}
+
+
+
 .hourly_forecast_boxes {}

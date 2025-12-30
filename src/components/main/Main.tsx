@@ -3,7 +3,7 @@ import Search from "./search/Search.tsx";
 import Result from "./result/Result.tsx";
 
 
-function Main({onSearchPlace, searchPlace, openMeteoWeatherInfo, openMeteoGeoInfo, measureType, onMenuClose, dayOfWeek, onDayOfWeekChange, onDaysClick}) {
+function Main({onSearchPlace, searchPlace, openMeteoWeatherInfo, openMeteoGeoInfo, measureType, onMenuClose, dayOfWeek, onDayOfWeekChange, onDaysClick, windowIsOpen, onWindowClick, closeWindow}) {
     return (
         <main className={styles.main_container} onClick={onMenuClose}>
             <Search onSearchPlace={onSearchPlace}
@@ -16,6 +16,9 @@ function Main({onSearchPlace, searchPlace, openMeteoWeatherInfo, openMeteoGeoInf
                     dayOfWeek = {dayOfWeek}
                     onDayOfWeekChange = {onDayOfWeekChange}
                     onDaysClick = {onDaysClick}
+                    windowIsOpen={windowIsOpen}
+                    onWindowClick={onWindowClick}
+                    closeWindow={closeWindow}
             />
         </main>)
 }
