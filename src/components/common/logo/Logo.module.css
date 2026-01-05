@@ -3,3 +3,14 @@
     width: calc(137rem/16);
     height: calc(28rem/16);
 }
+
+@media (orientation: landscape) and (min-width: 320px) and (max-width: 767px) {}
+
+@media (min-width: 768px) {
+    .logo_svg {
+        width: calc(200rem/16);
+        height: calc(40rem/16);
+    }
+}
+
+@media (min-width: 1440px) {}

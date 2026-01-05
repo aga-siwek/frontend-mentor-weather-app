@@ -11,7 +11,7 @@ function DailyForecast({openMeteoWeatherInfo, measureType}) {
             return (openMeteoWeatherInfo.daily.temperature_2m_min
             )
         } else {
-            return "None"
+            return "-"
         }
     }
 
@@ -20,7 +20,7 @@ function DailyForecast({openMeteoWeatherInfo, measureType}) {
             return (openMeteoWeatherInfo.daily.temperature_2m_max
             )
         } else {
-            return "None"
+            return "-"
         }
     }
 
@@ -30,7 +30,7 @@ function DailyForecast({openMeteoWeatherInfo, measureType}) {
             return (openMeteoWeatherInfo.daily.precipitation_sum
             )
         } else {
-            return "None"
+            return "-"
         }
     }
 
@@ -38,7 +38,7 @@ function DailyForecast({openMeteoWeatherInfo, measureType}) {
         if (openMeteoWeatherInfo) {
             return (openMeteoWeatherInfo.daily.weather_code)
         } else {
-            return "None"
+            return "-"
         }
     }
 
@@ -60,7 +60,7 @@ function DailyForecast({openMeteoWeatherInfo, measureType}) {
 
 
     const showBoxes = () => {
-        if (weeklyMinTemp !== "None" && weeklyMaxTemp !== "None" && weeklyPrecipitation !== "None" && weeklyWeatherCode !== "None") {
+        if (weeklyMinTemp !== "-" && weeklyMaxTemp !== "-" && weeklyPrecipitation !== "-" && weeklyWeatherCode !== "-") {
             const indices = Array.from({ length: 7 }, (_, i) => i); // [0, 1, 2, 3, 4, 5, 6]
 
             return indices.map(i => (

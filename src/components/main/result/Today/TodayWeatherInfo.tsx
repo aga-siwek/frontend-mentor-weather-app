@@ -14,7 +14,7 @@ function TodayWeatherInfo({openMeteoWeatherInfo, measureType}) {
                 return (`${imperialFeelsLike.toString()}°`)
             }
         } else {
-            return "None"
+            return "-"
         }
     }
 
@@ -23,7 +23,7 @@ function TodayWeatherInfo({openMeteoWeatherInfo, measureType}) {
             return (`${openMeteoWeatherInfo.current.relative_humidity_2m}%`
             )
         } else {
-            return "None"
+            return "-"
         }
     }
 
@@ -38,7 +38,7 @@ function TodayWeatherInfo({openMeteoWeatherInfo, measureType}) {
                 return (`${imperialWindSpeed} mph`)
             }
         } else {
-            return "None"
+            return "-"
         }
     }
 
@@ -54,7 +54,7 @@ function TodayWeatherInfo({openMeteoWeatherInfo, measureType}) {
                 return (`${imperialPrecipitation}  in`)
             }
         } else {
-            return "None"
+            return "-"
         }
     }
 

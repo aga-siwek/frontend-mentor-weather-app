@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
     gap: calc(48rem/16)
 }
@@ -14,5 +14,15 @@
     font-weight: bold;
     color: var(--color_7);
     text-align: center;
+}
+
+@media (orientation: landscape) and (min-width: 320px) and (max-width: 767px) {}
+
+@media (min-width: 768px) {
+    .header_title {
+        max-width: calc(482rem/16);
+    }
 
 }
+
+@media (min-width: 1440px) {}

@@ -14,6 +14,7 @@
     width: calc(214rem / 16);
     top: 7%;
     left: -130px;
+    z-index: 2;
 }
 .menu_show {
     display: flex;

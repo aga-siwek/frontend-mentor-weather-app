@@ -58,7 +58,7 @@ function TodayMainInfo({openMeteoWeatherInfo, openMeteoGeoInfo, onSearchPlace, m
                 return imperialTemp.toString()
             }
         } else {
-            return "None"
+            return "- "
         }
     }
 
@@ -109,14 +109,14 @@ function TodayMainInfo({openMeteoWeatherInfo, openMeteoGeoInfo, onSearchPlace, m
 
         return <img src={overcastIcon} className={styles.icon_svg} alt="unknown weather" />;
     };
-
+    //
     const firstResult = openMeteoGeoInfo?.results?.[0];
-    const checkResult = () => {
-        if (!firstResult) {
-            onSearchPlace("Warsaw")
-        }
-    }
-    checkResult()
+    // const checkResult = () => {
+    //     if (!firstResult) {
+    //         onSearchPlace("Warsaw")
+    //     }
+    // }
+    // checkResult()
 
     return (
         <div className={styles.today_temp_container}>

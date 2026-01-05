@@ -67,7 +67,8 @@ async function OnSearchOpenMeteoWeather({
                                             lat,
                                             lon,
                                         }: ApiProps): Promise<OpenMeteoWeatherApiUtils> {
-    const link = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,wind_speed_10m,weather_code,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m,weather_code,is_day,`
+    console.log("start open meteo weather api");
+    const link = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,weather_code&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,wind_speed_10m,weather_code,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m,weather_code,is_day&timezone=auto,`
     console.log(link);
     const response = await fetch(link);
 
@@ -77,6 +78,7 @@ async function OnSearchOpenMeteoWeather({
     } else {
         const data = await response.json();
         onFailStatusChange(false)
+        console.log("open meteo geo data", data);
         return data
     }
 }

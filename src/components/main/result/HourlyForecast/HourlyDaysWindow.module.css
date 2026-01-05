@@ -24,12 +24,15 @@
     cursor: pointer;
 }
 
+.hourly_forecast_box_day:hover {
+    background: var(--color_3);
+}
+
 .hourly_forecast_box_day_text {
     color: var(--color_7);
     font-size: calc(16rem / 16);
     line-height: 120%
 }
-
 
 .hourly_forecast_box_day:hover {
     background: var(--color_3);
@@ -42,3 +45,9 @@
 .window_hidden {
     display: none;
 }
+
+@media (orientation: landscape) and (min-width: 320px) and (max-width: 767px) {}
+
+@media (min-width: 768px) {}
+
+@media (min-width: 1440px) {}

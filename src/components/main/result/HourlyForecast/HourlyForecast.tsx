@@ -28,10 +28,9 @@ function HourlyForecast({
         = () => {
         if (openMeteoWeatherInfo) {
             return (openMeteoWeatherInfo.hourly.precipitation_probability
-
             )
         } else {
-            return "None"
+            return "-"
         }
     }
 
@@ -42,7 +41,7 @@ function HourlyForecast({
 
             )
         } else {
-            return "None"
+            return "-"
         }
     }
 
@@ -53,7 +52,7 @@ function HourlyForecast({
 
             )
         } else {
-            return "None"
+            return "-"
         }
     }
 
@@ -63,7 +62,27 @@ function HourlyForecast({
             return (openMeteoWeatherInfo.hourly.temperature_2m
             )
         } else {
-            return "None"
+            return "-"
+        }
+    }
+
+    const weeklyHourlyTime
+        = () => {
+        if (openMeteoWeatherInfo) {
+            return (openMeteoWeatherInfo.hourly.time
+            )
+        } else {
+            return "-"
+        }
+    }
+
+    const checkCurrentTime
+        = () => {
+        if (openMeteoWeatherInfo) {
+            return (new Date(openMeteoWeatherInfo.current.time).getHours()
+            )
+        } else {
+            return 0
         }
     }
 
@@ -71,9 +90,11 @@ function HourlyForecast({
     const allHourlyTemp: number[] = weeklyHourlyTemp()
     const allHourlyWeatherCode: number[] = weeklyHourlyWeatherCode()
     const allHourlyIsDay: number[] = weeklyHourlyIsDay()
-
+    const allHourlyTime: string = weeklyHourlyTime()
     const today = new Date();
     const currentDayNumber = today.getDay();
+    const currentTime = checkCurrentTime()
+    console.log("current time from hourly", currentTime)
 
 
     const daysDifference = () => {
@@ -95,6 +116,7 @@ function HourlyForecast({
     const dailyPrecipitationList: number[] = []
     const dailyWeatherCodeList: number[] = []
     const dailyIsDayList: number[] = []
+    const dailyTimeList: string = []
 
 
     const seperateToDays = (myCurrentList, newList) => {
@@ -109,29 +131,57 @@ function HourlyForecast({
     seperateToDays(allHourlyPrecipitation, dailyPrecipitationList)
     seperateToDays(allHourlyWeatherCode, dailyWeatherCodeList)
     seperateToDays(allHourlyIsDay, dailyIsDayList)
+    seperateToDays(allHourlyTime, dailyTimeList)
 
     const showHourlyResult = () => {
-        const dayIndex = daysDifference(); // policz raz
+        const dayIndex = daysDifference();
         const temps = dailyTempList[dayIndex];
         const precs = dailyPrecipitationList[dayIndex];
         const weatherCodes = dailyWeatherCodeList[dayIndex];
         const isDays = dailyIsDayList[dayIndex];
+        const times = dailyTimeList[dayIndex];
+        // const currentTime = new Date(openMeteoWeatherInfo.current.time).getHours();
+
+        let showTodayTime = currentTime -1
 
 
         if (!Array.isArray(temps)) return null;
+        if (dayIndex === 0) {
+            const todayTemps = temps.slice(currentTime)
+
+            return todayTemps.map((temp, i) => {
+                const precipitation: number = precs?.[i] ?? 0;
+                const weatherCode: number = weatherCodes?.[i] ?? 0;
+                const isDay: number = isDays?.[i] ?? 0
+                showTodayTime += 1
+                return (
+                    <HourlyForecastBox
+                        key={i}
+                        hourlyTemp={temp}
+                        hourlyPrecipitation={precipitation}
+                        time={showTodayTime}
+                        weatherCode={weatherCode}
+                        isDay={isDay}
+                        measureType={measureType}
+                    />
+                );
+            });
+        }
 
         return temps.map((temp, i) => {
             const precipitation: number = precs?.[i] ?? 0;
             const weatherCode: number = weatherCodes?.[i] ?? 0;
             const isDay: number = isDays?.[i] ?? 0
+            const time = new Date(times[i]).getHours()
             return (
                 <HourlyForecastBox
                     key={i}
                     hourlyTemp={temp}
                     hourlyPrecipitation={precipitation}
-                    time={i}
+                    time={time}
                     weatherCode={weatherCode}
                     isDay={isDay}
+                    measureType={measureType}
                 />
             );
         });

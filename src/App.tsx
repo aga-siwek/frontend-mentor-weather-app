@@ -30,7 +30,7 @@ function App() {
     const [tempMeasure, setTempMeasure] = useState<TempUnit>("CELCIUS");
     const [windSpeedMeasure, setWindSpeedMeasure] = useState<SpeedUnit>("KM/H");
     const [precipitation, setPrecipitation] = useState<PrecipitationUnit>("MILLIMETERS");
-    const [searchPlace, setSearchPlace] = useState<string>("");
+    const [searchPlace, setSearchPlace] = useState<string>();
     const [hourlyForecast, setHourlyForecast] = useState<PrecipitationUnit>("MILLIMETERS");
     const [dayOfWeek, setDayOfWeek] = useState<DayOfWeek>(dayNumber);
     const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
@@ -86,6 +86,7 @@ function App() {
         const dataOpenMeteoGeo = await onSearchOpenMeteoGeo({searchPlace, onFailStatusChange})
         if (!Object.keys(dataOpenMeteoGeo).includes("results")) {
             setFailStatus(true)
+            setApiWeatherInfo()
             return
         }
         setApiGeoInfo(dataOpenMeteoGeo)
@@ -93,7 +94,6 @@ function App() {
         const lon: string = dataOpenMeteoGeo.results[0].longitude.toString();
         const dataOpenMeteoWeather = await OnSearchOpenMeteoWeather({onFailStatusChange, lat, lon})
         await setApiWeatherInfo(dataOpenMeteoWeather)
-        console.log(dataOpenMeteoWeather)
     }
 
     const onSwitchMeasure = (measure: MeasureType): void => {
@@ -114,8 +114,7 @@ function App() {
     useEffect(() => {
         getApiData()
     }, [searchPlace])
-    useEffect(()=>{
-        console.log("change days of week", dayOfWeek)
+    useEffect(() => {
     }, [dayOfWeek])
 
     return (

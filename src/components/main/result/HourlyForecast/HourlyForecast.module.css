@@ -11,6 +11,8 @@
     border-radius: calc(20rem/16);
     width: 100%;
     position: relative;
+    gap: calc(16rem/16);
+    z-index: -1;
 }
 
 .hourly_forecast_header {
@@ -19,7 +21,6 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-
 }
 
 .hourly_forecast_header_text {
@@ -38,6 +39,7 @@
     gap: calc(8rem/16);
     background: var(--color_4);
     border-radius: calc(8rem/16);
+    cursor: pointer;
 }
 
 .hourly_forecast_day_name {
@@ -50,6 +52,17 @@
     height: calc(18rem/16);
 }
 
+.hourly_forecast_boxes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: calc(16rem/16);
+}
 
+@media (orientation: landscape) and (min-width: 320px) and (max-width: 767px) {}
 
-.hourly_forecast_boxes {}
+@media (min-width: 768px) {}
+
+@media (min-width: 1440px) {}

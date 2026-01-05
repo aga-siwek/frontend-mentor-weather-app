@@ -32,9 +32,25 @@
     line-height: 120%;
     border: none;
     color: var(--color_6);
+    width: 100%;
 }
 
 .search_input:focus {
     outline: none;
     border: none;
 }
+
+@media (orientation: landscape) and (min-width: 320px) and (max-width: 767px) {}
+
+@media (min-width: 768px) {
+    .search_container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: calc(12rem/16);
+    }
+}
+
+@media (min-width: 1440px) {}
