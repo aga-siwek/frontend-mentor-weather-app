@@ -109,20 +109,29 @@ function TodayMainInfo({openMeteoWeatherInfo, openMeteoGeoInfo, onSearchPlace, m
 
         return <img src={overcastIcon} className={styles.icon_svg} alt="unknown weather" />;
     };
-    //
-    const firstResult = openMeteoGeoInfo?.results?.[0];
-    // const checkResult = () => {
-    //     if (!firstResult) {
-    //         onSearchPlace("Warsaw")
-    //     }
-    // }
-    // checkResult()
+    const cityCalculation = () => {
+        if (openMeteoGeoInfo?.results?.[0].name) {
+            return (openMeteoGeoInfo?.results?.[0].name
+            )
+        } else {
+            return "-"
+        }
+    }
+
+    const countryCalculation = () => {
+        if (openMeteoGeoInfo?.results?.[0].country) {
+            return (openMeteoGeoInfo?.results?.[0].country
+            )
+        } else {
+            return "-"
+        }
+    }
 
     return (
         <div className={styles.today_temp_container}>
             <div className={styles.main_info}>
-                <div className={styles.main_info_localisation}>
-                    <p className={styles.main_info_localisation_text}>{firstResult && `${firstResult.country}, ${firstResult.name}`}</p>
+                <div className={styles.main_info_localization}>
+                    <p className={styles.main_info_localization_text}>{countryCalculation()}, {cityCalculation()}</p>
                 </div>
                 <div className={styles.main_info_date}>
                     <p className={styles.main_info_date_text}>{`${dayName}, ${todayDay} ${monthsName[todayMonth]} ${todayYear} `}</p>

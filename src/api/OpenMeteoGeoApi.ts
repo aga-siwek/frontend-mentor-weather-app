@@ -35,11 +35,9 @@ function delay(ms: number) {
 }
 
 async function onSearchOpenMeteoGeo({ searchPlace = "Warsaw", onFailStatusChange }: ApiProps) {
-    console.log("start api open meteo geo");
     await delay(1000);
     const correctSearch: string = searchPlace.toLowerCase().trim().replaceAll(" ", "%20");
     const link = `https://geocoding-api.open-meteo.com/v1/search?name=${correctSearch}&count=10&language=en&format=json`
-    console.log(link);
     const response = await fetch(
         link,
         {
@@ -49,14 +47,12 @@ async function onSearchOpenMeteoGeo({ searchPlace = "Warsaw", onFailStatusChange
             }
         }
     );
-    console.log("response geo api", response)
     if (response.status === 404) {
         onFailStatusChange(true);
         return {};
     }
     const data: OpenMeteoGeoApiUtils = await response.json();
     onFailStatusChange(false);
-    console.log("open meteo api geo", data);
     return data;
 }
 

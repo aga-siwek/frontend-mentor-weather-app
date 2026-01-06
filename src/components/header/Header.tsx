@@ -1,9 +1,6 @@
 import styles from "./Header.module.css"
 import Navigation from "./Navigation.tsx";
 
-
-
-
 function Header({menuIsOpen, onMenuClick, onSwitchMeasure, measureType, onMenuClose})
 {
     return (

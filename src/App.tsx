@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react'
 import './App.css'
 import Header from "./components/header/Header.tsx"
 import Main from "./components/main/Main.tsx"
+import {MainContext} from "./hooks/MainContext.tsx";
 
 type MeasureType = "IMPERIAL" | "METRIC"
 type TempUnit = "CELCIUS" | "FAHRENHEIT";
@@ -87,6 +88,7 @@ function App() {
         if (!Object.keys(dataOpenMeteoGeo).includes("results")) {
             setFailStatus(true)
             setApiWeatherInfo()
+            setApiGeoInfo()
             return
         }
         setApiGeoInfo(dataOpenMeteoGeo)
@@ -117,7 +119,13 @@ function App() {
     useEffect(() => {
     }, [dayOfWeek])
 
+
     return (
+        <MainContext.Provider value={{
+            menuIsOpen, onMenuClick, onSwitchMeasure, measureType, onMenuClose,
+            onSearchPlace, apiWeatherInfo, apiGeoInfo, onMenuClose, dayOfWeek,
+            onDayOfWeekChange, onDayOfWeekChange, onDaysClick, windowIsOpen,
+            onWindowClick, closeWindow}}>
         <div className="container">
             <Header
                 menuIsOpen={menuIsOpen}
@@ -141,6 +149,7 @@ function App() {
                 closeWindow={closeWindow}
             />
         </div>
+        </MainContext.Provider>
     )
 }
 

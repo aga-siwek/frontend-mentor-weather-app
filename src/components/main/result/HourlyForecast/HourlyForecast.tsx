@@ -94,7 +94,6 @@ function HourlyForecast({
     const today = new Date();
     const currentDayNumber = today.getDay();
     const currentTime = checkCurrentTime()
-    console.log("current time from hourly", currentTime)
 
 
     const daysDifference = () => {

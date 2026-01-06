@@ -10,7 +10,6 @@ import stormIcon from "../../../../assets/icon-storm.webp"
 
 
 function HourlyForecastBox({hourlyTemp, time, weatherCode, isDay, measureType}) {
-    console.log("time from hourly", time, "isday", isDay, measureType)
     const getIcon = () => {
         if (weatherCode == null) return null;
 
@@ -64,15 +63,12 @@ function HourlyForecastBox({hourlyTemp, time, weatherCode, isDay, measureType}) 
     }
 
     const hourlyTempCalculation = () => {
-        console.log("start hourlyforcastbox", measureType)
         if (measureType==="METRIC") {
             const metricMinTemp = Math.round(hourlyTemp)
-            console.log("hourlyforcastbox", measureType, metricMinTemp)
             return metricMinTemp.toString()
         }
         else if (measureType==="IMPERIAL") {
             const imperialMinTemp = Math.round((hourlyTemp*1.8)+32)
-            console.log("hourlyforcastbox", measureType, imperialMinTemp)
             return imperialMinTemp.toString()
 
         }
