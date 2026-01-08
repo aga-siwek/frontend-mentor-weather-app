@@ -1,14 +1,16 @@
 import styles from "./DailyForecast.module.css"
 import DailyForecastBox from "./DailyForecastBox.tsx";
+import {useMainContext} from "../../../../hooks/useMainContext.ts";
 
-function DailyForecast({openMeteoWeatherInfo, measureType}) {
+function DailyForecast() {
 
+    const {apiWeatherInfo, measureType} = useMainContext()
     const today = new Date();
     const dayNumber = today.getDay();
 
     const weeklyMinTempCalculation = () => {
-        if (openMeteoWeatherInfo) {
-            return (openMeteoWeatherInfo.daily.temperature_2m_min
+        if (apiWeatherInfo) {
+            return (apiWeatherInfo.daily.temperature_2m_min
             )
         } else {
             return "-"
@@ -16,8 +18,8 @@ function DailyForecast({openMeteoWeatherInfo, measureType}) {
     }
 
     const weeklyMaxTempCalculation = () => {
-        if (openMeteoWeatherInfo) {
-            return (openMeteoWeatherInfo.daily.temperature_2m_max
+        if (apiWeatherInfo) {
+            return (apiWeatherInfo.daily.temperature_2m_max
             )
         } else {
             return "-"
@@ -26,8 +28,8 @@ function DailyForecast({openMeteoWeatherInfo, measureType}) {
 
     const weeklyPrecipitationCalculation
         = () => {
-        if (openMeteoWeatherInfo) {
-            return (openMeteoWeatherInfo.daily.precipitation_sum
+        if (apiWeatherInfo) {
+            return (apiWeatherInfo.daily.precipitation_sum
             )
         } else {
             return "-"
@@ -35,8 +37,8 @@ function DailyForecast({openMeteoWeatherInfo, measureType}) {
     }
 
     const weeklyWeatherCodeCalculation = () => {
-        if (openMeteoWeatherInfo) {
-            return (openMeteoWeatherInfo.daily.weather_code)
+        if (apiWeatherInfo) {
+            return (apiWeatherInfo.daily.weather_code)
         } else {
             return "-"
         }

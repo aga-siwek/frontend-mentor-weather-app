@@ -1,15 +1,17 @@
 import styles from "./TodayWeatherInfo.module.css"
 import TodayWeatherInfoBox from "./TodayWeatherInfoBox.tsx";
+import {useMainContext} from "../../../../hooks/useMainContext.ts";
 
-function TodayWeatherInfo({openMeteoWeatherInfo, measureType}) {
+function TodayWeatherInfo() {
 
+    const {apiWeatherInfo, measureType} = useMainContext()
     const feelsLikeCalculation = () => {
-        if (openMeteoWeatherInfo) {
+        if (apiWeatherInfo) {
             if (measureType === "METRIC") {
-                const metricFeelsLike = Math.round(openMeteoWeatherInfo.current.apparent_temperature)
+                const metricFeelsLike = Math.round(apiWeatherInfo.current.apparent_temperature)
                 return (`${metricFeelsLike.toString()}°`)
             } else if (measureType === "IMPERIAL") {
-                const metricFeelsLike = openMeteoWeatherInfo.current.apparent_temperature
+                const metricFeelsLike = apiWeatherInfo.current.apparent_temperature
                 const imperialFeelsLike = Math.round((metricFeelsLike * 1.8) + 32)
                 return (`${imperialFeelsLike.toString()}°`)
             }
@@ -19,8 +21,8 @@ function TodayWeatherInfo({openMeteoWeatherInfo, measureType}) {
     }
 
     const humidityCalculation = () => {
-        if (openMeteoWeatherInfo) {
-            return (`${openMeteoWeatherInfo.current.relative_humidity_2m}%`
+        if (apiWeatherInfo) {
+            return (`${apiWeatherInfo.current.relative_humidity_2m}%`
             )
         } else {
             return "-"
@@ -28,12 +30,12 @@ function TodayWeatherInfo({openMeteoWeatherInfo, measureType}) {
     }
 
     const windSpeedCalculation = () => {
-        if (openMeteoWeatherInfo) {
+        if (apiWeatherInfo) {
             if (measureType === "METRIC") {
-                const metricWindSpeed = Math.round(openMeteoWeatherInfo.current.wind_speed_10m)
+                const metricWindSpeed = Math.round(apiWeatherInfo.current.wind_speed_10m)
                 return (`${metricWindSpeed} km/h`)
             } else if (measureType === "IMPERIAL") {
-                const metricWindSpeed = openMeteoWeatherInfo.current.wind_speed_10m
+                const metricWindSpeed = apiWeatherInfo.current.wind_speed_10m
                 const imperialWindSpeed = Math.round(metricWindSpeed * 0.621371)
                 return (`${imperialWindSpeed} mph`)
             }
@@ -43,18 +45,17 @@ function TodayWeatherInfo({openMeteoWeatherInfo, measureType}) {
     }
 
     const precipitationCalculation = () => {
-        if (openMeteoWeatherInfo) {
-            if (measureType === "METRIC") {
-                const metricPrecipitation = Math.round(openMeteoWeatherInfo.current.precipitation)
-                return (`${metricPrecipitation}  mm`
-                )
-            } else if (measureType === "IMPERIAL") {
-                const metricPrecipitation = openMeteoWeatherInfo.current.precipitation
-                const imperialPrecipitation = Math.round(metricPrecipitation * 0.03937)
-                return (`${imperialPrecipitation}  in`)
-            }
-        } else {
+        if (!apiWeatherInfo) {
             return "-"
+        }
+        else if (measureType === "METRIC") {
+            const metricPrecipitation = Math.round(apiWeatherInfo.current.precipitation)
+            return (`${metricPrecipitation}  mm`
+            )
+        } else if (measureType === "IMPERIAL") {
+            const metricPrecipitation = apiWeatherInfo.current.precipitation
+            const imperialPrecipitation = Math.round(metricPrecipitation * 0.03937)
+            return (`${imperialPrecipitation}  in`)
         }
     }
 

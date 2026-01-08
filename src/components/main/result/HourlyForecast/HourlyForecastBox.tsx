@@ -7,9 +7,10 @@ import partlyCloudyIcon from "../../../../assets/icon-partly-cloudy.webp"
 import rainIcon from "../../../../assets/icon-sunny.webp"
 import snowIcon from "../../../../assets/icon-snow.webp"
 import stormIcon from "../../../../assets/icon-storm.webp"
+import {useMainContext} from "../../../../hooks/useMainContext.ts";
 
-
-function HourlyForecastBox({hourlyTemp, time, weatherCode, isDay, measureType}) {
+function HourlyForecastBox({hourlyTemp, time, weatherCode, isDay}) {
+    const {measureType} = useMainContext()
     const getIcon = () => {
         if (weatherCode == null) return null;
 

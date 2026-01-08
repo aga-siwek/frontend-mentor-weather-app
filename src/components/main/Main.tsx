@@ -1,25 +1,14 @@
 import styles from "./Main.module.css"
 import Search from "./search/Search.tsx";
 import Result from "./result/Result.tsx";
+import {useMainContext} from "../../hooks/useMainContext.ts";
 
-
-function Main({onSearchPlace, searchPlace, openMeteoWeatherInfo, openMeteoGeoInfo, measureType, onMenuClose, dayOfWeek, onDayOfWeekChange, onDaysClick, windowIsOpen, onWindowClick, closeWindow}) {
+function Main() {
+    const {onMenuClose} = useMainContext()
     return (
         <main className={styles.main_container} onClick={onMenuClose}>
-            <Search onSearchPlace={onSearchPlace}
-                    searchPlace={searchPlace}/>
-            <Result onSearchPlace={onSearchPlace}
-                    searchPlace={searchPlace}
-                    openMeteoWeatherInfo={openMeteoWeatherInfo}
-                    openMeteoGeoInfo={openMeteoGeoInfo}
-                    measureType={measureType}
-                    dayOfWeek = {dayOfWeek}
-                    onDayOfWeekChange = {onDayOfWeekChange}
-                    onDaysClick = {onDaysClick}
-                    windowIsOpen={windowIsOpen}
-                    onWindowClick={onWindowClick}
-                    closeWindow={closeWindow}
-            />
+            <Search />
+            <Result/>
         </main>)
 }
 

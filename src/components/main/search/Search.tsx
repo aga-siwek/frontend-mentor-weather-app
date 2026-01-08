@@ -3,12 +3,10 @@ import {ReactSVG} from "react-svg";
 import searchIcon from "../../../assets/icon-search.svg"
 import Button from "../../common/buttons/ButtonPrimary.tsx"
 import {useState} from "react";
+import {useMainContext} from "../../../hooks/useMainContext.ts";
 
-type MainComponentProps = {
-    onSearchPlace: (place: string) => void;
-}
-
-function Search({onSearchPlace}: MainComponentProps) {
+function Search() {
+    const {onSearchPlace} = useMainContext()
     const [tempPlace, setTempPlace] = useState<string>("");
 
     const handlePlaceChange = (e): void => {

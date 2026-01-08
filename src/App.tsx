@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import './App.css'
 import Header from "./components/header/Header.tsx"
 import Main from "./components/main/Main.tsx"
-import {MainContext} from "./hooks/MainContext.tsx";
+import {MainContext, type MainContextType} from "./context/MainContext.ts"
 
 type MeasureType = "IMPERIAL" | "METRIC"
 type TempUnit = "CELCIUS" | "FAHRENHEIT";
@@ -26,7 +26,6 @@ function App() {
 
     const today = new Date();
     const dayNumber = today.getDay();
-
     const [measureType, setMeasureType] = useState<MeasureType>("METRIC");
     const [tempMeasure, setTempMeasure] = useState<TempUnit>("CELCIUS");
     const [windSpeedMeasure, setWindSpeedMeasure] = useState<SpeedUnit>("KM/H");
@@ -46,10 +45,12 @@ function App() {
     }
 
     const onWindowClick = () => {
+        console.log("Window clicked");
         setWindowIsOpen(!windowIsOpen)
     }
 
     const closeWindow = () => {
+        console.log("on window close", windowIsOpen)
         setWindowIsOpen(false)
     }
 
@@ -87,8 +88,8 @@ function App() {
         const dataOpenMeteoGeo = await onSearchOpenMeteoGeo({searchPlace, onFailStatusChange})
         if (!Object.keys(dataOpenMeteoGeo).includes("results")) {
             setFailStatus(true)
-            setApiWeatherInfo()
-            setApiGeoInfo()
+            setApiWeatherInfo(undefined)
+            setApiGeoInfo(undefined)
             return
         }
         setApiGeoInfo(dataOpenMeteoGeo)
@@ -113,45 +114,29 @@ function App() {
         onSearchPlace(searchPlace)
     }
 
+    const contextValue: MainContextType = {
+        menuIsOpen, onMenuClick, onSwitchMeasure, measureType, onMenuClose,
+        onSearchPlace, apiWeatherInfo, apiGeoInfo, onMenuClose, dayOfWeek,
+        onDayOfWeekChange, onDayOfWeekChange, onDaysClick, windowIsOpen,
+        onWindowClick, closeWindow}
+
+
     useEffect(() => {
         getApiData()
     }, [searchPlace])
     useEffect(() => {
     }, [dayOfWeek])
 
+    console.log("window is open from app", windowIsOpen)
 
     return (
-        <MainContext.Provider value={{
-            menuIsOpen, onMenuClick, onSwitchMeasure, measureType, onMenuClose,
-            onSearchPlace, apiWeatherInfo, apiGeoInfo, onMenuClose, dayOfWeek,
-            onDayOfWeekChange, onDayOfWeekChange, onDaysClick, windowIsOpen,
-            onWindowClick, closeWindow}}>
+        <MainContext.Provider value={contextValue}>
         <div className="container">
-            <Header
-                menuIsOpen={menuIsOpen}
-                onMenuClick={onMenuClick}
-                onSwitchMeasure={onSwitchMeasure}
-                measureType={measureType}
-                onMenuClose={onMenuClose}
-            />
-            <Main
-                onSearchPlace={onSearchPlace}
-                searchPlace={searchPlace}
-                openMeteoWeatherInfo={apiWeatherInfo}
-                openMeteoGeoInfo={apiGeoInfo}
-                measureType={measureType}
-                onMenuClose={onMenuClose}
-                dayOfWeek={dayOfWeek}
-                onDayOfWeekChange={onDayOfWeekChange}
-                onDaysClick={onDaysClick}
-                windowIsOpen={windowIsOpen}
-                onWindowClick={onWindowClick}
-                closeWindow={closeWindow}
-            />
+            <Header/>
+            <Main/>
         </div>
         </MainContext.Provider>
     )
 }
-
 
 export default App

@@ -1,6 +1,9 @@
 import styles from "./HourlyDaysWindow.module.css"
+import {useMainContext} from "../../../../hooks/useMainContext.ts";
 
-function HourlyDaysWindows({onDaysClick, onDayOfWeekChange, windowIsOpen, closeWindow}) {
+function HourlyDaysWindows() {
+
+    const {onDayOfWeekChange, windowIsOpen} = useMainContext()
     const weekDays: Record<number, string> = {
         1: "Monday",
         2: "Tuesday",

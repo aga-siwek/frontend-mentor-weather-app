@@ -2,18 +2,11 @@ import styles from "./HourlyForecast.module.css"
 import HourlyDaysWindow from "./HourlyDaysWindow.tsx";
 import HourlyForecastBox from "./HourlyForecastBox.tsx";
 import dropDownIcon from "../../../../assets/icon-dropdown.svg"
+import {useMainContext} from "../../../../hooks/useMainContext.ts";
 
-function HourlyForecast({
-                            openMeteoWeatherInfo,
-                            measureType,
-                            dayOfWeek,
-                            onDaysClick,
-                            onDayOfWeekChange,
-                            windowIsOpen,
-                            onWindowClick,
-                            closeWindow
-                        }) {
+function HourlyForecast() {
 
+ const {apiWeatherInfo, dayOfWeek, closeWindow, onWindowClick} = useMainContext()
     const weekDays: Record<number, string> = {
         1: "Monday",
         2: "Tuesday",
@@ -26,8 +19,8 @@ function HourlyForecast({
 
     const weeklyHourlyPrecipitation
         = () => {
-        if (openMeteoWeatherInfo) {
-            return (openMeteoWeatherInfo.hourly.precipitation_probability
+        if (apiWeatherInfo) {
+            return (apiWeatherInfo.hourly.precipitation_probability
             )
         } else {
             return "-"
@@ -36,8 +29,8 @@ function HourlyForecast({
 
     const weeklyHourlyWeatherCode
         = () => {
-        if (openMeteoWeatherInfo) {
-            return (openMeteoWeatherInfo.hourly.weather_code
+        if (apiWeatherInfo) {
+            return (apiWeatherInfo.hourly.weather_code
 
             )
         } else {
@@ -47,8 +40,8 @@ function HourlyForecast({
 
     const weeklyHourlyIsDay
         = () => {
-        if (openMeteoWeatherInfo) {
-            return (openMeteoWeatherInfo.hourly.is_day
+        if (apiWeatherInfo) {
+            return (apiWeatherInfo.hourly.is_day
 
             )
         } else {
@@ -58,8 +51,8 @@ function HourlyForecast({
 
     const weeklyHourlyTemp
         = () => {
-        if (openMeteoWeatherInfo) {
-            return (openMeteoWeatherInfo.hourly.temperature_2m
+        if (apiWeatherInfo) {
+            return (apiWeatherInfo.hourly.temperature_2m
             )
         } else {
             return "-"
@@ -68,8 +61,8 @@ function HourlyForecast({
 
     const weeklyHourlyTime
         = () => {
-        if (openMeteoWeatherInfo) {
-            return (openMeteoWeatherInfo.hourly.time
+        if (apiWeatherInfo) {
+            return (apiWeatherInfo.hourly.time
             )
         } else {
             return "-"
@@ -78,8 +71,8 @@ function HourlyForecast({
 
     const checkCurrentTime
         = () => {
-        if (openMeteoWeatherInfo) {
-            return (new Date(openMeteoWeatherInfo.current.time).getHours()
+        if (apiWeatherInfo) {
+            return (new Date(apiWeatherInfo.current.time).getHours()
             )
         } else {
             return 0
@@ -101,7 +94,7 @@ function HourlyForecast({
         // if we have saturday 6 and we have wednesday [3] = 4 => 7-6+4
         // if we have sunday 7 and we have friday 5 = 5 => 7-7+5
         // if we have Saturday 6 and we have Tuesday[2] = 3 => 7-6+2
-        // if we have Tuesday 2 and wendesday 3 = 1 => 3-2
+        // if we have Tuesday 2 and Wendesday 3 = 1 => 3-2
 
         if (dayOfWeek >= currentDayNumber) {
             return dayOfWeek - currentDayNumber
@@ -115,8 +108,7 @@ function HourlyForecast({
     const dailyPrecipitationList: number[] = []
     const dailyWeatherCodeList: number[] = []
     const dailyIsDayList: number[] = []
-    const dailyTimeList: string = []
-
+    const dailyTimeList: string[] = []
 
     const seperateToDays = (myCurrentList, newList) => {
         if (myCurrentList && myCurrentList.length > 0) {
@@ -141,8 +133,7 @@ function HourlyForecast({
         const times = dailyTimeList[dayIndex];
         // const currentTime = new Date(openMeteoWeatherInfo.current.time).getHours();
 
-        let showTodayTime = currentTime -1
-
+        let showTodayTime = currentTime - 1
 
         if (!Array.isArray(temps)) return null;
         if (dayIndex === 0) {
@@ -161,7 +152,6 @@ function HourlyForecast({
                         time={showTodayTime}
                         weatherCode={weatherCode}
                         isDay={isDay}
-                        measureType={measureType}
                     />
                 );
             });
@@ -180,24 +170,23 @@ function HourlyForecast({
                     time={time}
                     weatherCode={weatherCode}
                     isDay={isDay}
-                    measureType={measureType}
                 />
             );
         });
     };
 
     return (
-        <div className={styles.hourly_forecast_container}>
+        <div className={styles.hourly_forecast_container} >
             <div className={styles.hourly_forecast_header}>
                 <h3 className={styles.hourly_forecast_header_text}>Hourly forecast</h3>
-                <div className={styles.hourly_forecast_header_day} onClick={()=> onWindowClick()}>
+                <div className={styles.hourly_forecast_header_day} onClick={() => onWindowClick()}>
                     <div className={styles.hourly_forecast_day_name}>{weekDays[dayOfWeek]}</div>
                     <img src={dropDownIcon} alt="dropDownIcon" className={styles.hourly_forecast_day_icon}/>
                 </div>
+
             </div>
-            <div className={styles.hourly_forecast_boxes} onClick={()=> closeWindow()}>{showHourlyResult()}</div>
-            <HourlyDaysWindow onDaysClick={onDaysClick} onDayOfWeekChange={onDayOfWeekChange}
-                              windowIsOpen={windowIsOpen} closeWindow={closeWindow}/>
+            <div className={styles.hourly_forecast_boxes} onClick={() => closeWindow()}>{showHourlyResult()}</div>
+            <HourlyDaysWindow/>
         </div>)
 }
 

@@ -7,6 +7,7 @@ import partlyCloudyIcon from "../../../../assets/icon-partly-cloudy.webp"
 import rainIcon from "../../../../assets/icon-sunny.webp"
 import snowIcon from "../../../../assets/icon-snow.webp"
 import stormIcon from "../../../../assets/icon-storm.webp"
+import {useMainContext} from "../../../../hooks/useMainContext.ts";
 
 const monthsName = {
     0: "Jan",
@@ -23,37 +24,40 @@ const monthsName = {
     11: "Dec"
 };
 
-function TodayMainInfo({openMeteoWeatherInfo, openMeteoGeoInfo, onSearchPlace, measureType}) {
+function TodayMainInfo() {
+    const {apiWeatherInfo, apiGeoInfo, measureType} = useMainContext()
+
     const today = new Date()
     const dayName = today.toLocaleDateString('en-EN', {weekday: 'long'});
     const todayDay = today.getDate()
     const todayMonth = today.getMonth()
     const todayYear = today.getFullYear();
 
+
     const todayWeatherCodeCalculation = () => {
-        if (openMeteoWeatherInfo) {
-            return (openMeteoWeatherInfo.current.weather_code)
+        if (apiWeatherInfo) {
+            return (apiWeatherInfo.current.weather_code)
         } else {
             return 1000
         }
     }
 
     const todayIsDayCalculation = () => {
-        if (openMeteoWeatherInfo) {
-            return (openMeteoWeatherInfo.current.is_day)
+        if (apiWeatherInfo) {
+            return (apiWeatherInfo.current.is_day)
         } else {
             return 0
         }
     }
 
     const todayTemperatureCalculation = () => {
-        if (openMeteoWeatherInfo) {
+        if (apiWeatherInfo) {
             if(measureType==="METRIC") {
-                const metricTemp = Math.round(openMeteoWeatherInfo.current.temperature_2m)
+                const metricTemp = Math.round(apiWeatherInfo.current.temperature_2m)
                 return (metricTemp.toString()
             )}
             else if(measureType==="IMPERIAL") {
-                const metricTemp = openMeteoWeatherInfo.current.temperature_2m
+                const metricTemp = apiWeatherInfo.current.temperature_2m
                 const imperialTemp = Math.round((metricTemp*1.8) + 32)
                 return imperialTemp.toString()
             }
@@ -110,8 +114,8 @@ function TodayMainInfo({openMeteoWeatherInfo, openMeteoGeoInfo, onSearchPlace, m
         return <img src={overcastIcon} className={styles.icon_svg} alt="unknown weather" />;
     };
     const cityCalculation = () => {
-        if (openMeteoGeoInfo?.results?.[0].name) {
-            return (openMeteoGeoInfo?.results?.[0].name
+        if (apiGeoInfo?.results?.[0].name) {
+            return (apiGeoInfo?.results?.[0].name
             )
         } else {
             return "-"
@@ -119,8 +123,8 @@ function TodayMainInfo({openMeteoWeatherInfo, openMeteoGeoInfo, onSearchPlace, m
     }
 
     const countryCalculation = () => {
-        if (openMeteoGeoInfo?.results?.[0].country) {
-            return (openMeteoGeoInfo?.results?.[0].country
+        if (apiGeoInfo?.results?.[0].country) {
+            return (apiGeoInfo?.results?.[0].country
             )
         } else {
             return "-"
