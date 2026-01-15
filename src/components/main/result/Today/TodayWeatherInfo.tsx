@@ -6,7 +6,7 @@ function TodayWeatherInfo() {
 
     const {apiWeatherInfo, measureType} = useMainContext()
     const feelsLikeCalculation = () => {
-        if (apiWeatherInfo) {
+        if (apiWeatherInfo?.current) {
             if (measureType === "METRIC") {
                 const metricFeelsLike = Math.round(apiWeatherInfo.current.apparent_temperature)
                 return (`${metricFeelsLike.toString()}°`)
@@ -21,7 +21,7 @@ function TodayWeatherInfo() {
     }
 
     const humidityCalculation = () => {
-        if (apiWeatherInfo) {
+        if (apiWeatherInfo?.current) {
             return (`${apiWeatherInfo.current.relative_humidity_2m}%`
             )
         } else {
@@ -30,7 +30,7 @@ function TodayWeatherInfo() {
     }
 
     const windSpeedCalculation = () => {
-        if (apiWeatherInfo) {
+        if (apiWeatherInfo?.current) {
             if (measureType === "METRIC") {
                 const metricWindSpeed = Math.round(apiWeatherInfo.current.wind_speed_10m)
                 return (`${metricWindSpeed} km/h`)
@@ -45,7 +45,7 @@ function TodayWeatherInfo() {
     }
 
     const precipitationCalculation = () => {
-        if (!apiWeatherInfo) {
+        if (!apiWeatherInfo?.current) {
             return "-"
         }
         else if (measureType === "METRIC") {

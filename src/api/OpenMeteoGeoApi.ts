@@ -1,32 +1,30 @@
-
-
 export interface LocationResult {
-    id: number;
-    name: string;
-    latitude: number;
-    longitude: number;
-    elevation: number;
-    feature_code: string;
-    country_code: string;
-    admin1_id: number;
-    admin2_id: number;
-    admin3_id: number;
-    timezone: string;
-    population: number;
-    country_id: number;
-    country: string;
-    admin1: string;
-    admin2: string;
-    admin3: string;
+    id?: number;
+    name?: string;
+    latitude?: number;
+    longitude?: number;
+    elevation?: number;
+    feature_code?: string;
+    country_code?: string;
+    admin1_id?: number;
+    admin2_id?: number;
+    admin3_id?: number;
+    timezone?: string;
+    population?: number;
+    country_id?: number;
+    country?: string;
+    admin1?: string;
+    admin2?: string;
+    admin3?: string;
 }
 
 export interface OpenMeteoGeoApiUtils {
-    results: LocationResult[] | {};
+    results?: LocationResult[];
     generationtime_ms: number;
 }
 
 interface ApiProps {
-    searchPlace: string;
+    searchPlace?: string ;
     onFailStatusChange: (status: boolean) => void;
 }
 
@@ -38,6 +36,7 @@ async function onSearchOpenMeteoGeo({ searchPlace = "Warsaw", onFailStatusChange
     await delay(1000);
     const correctSearch: string = searchPlace.toLowerCase().trim().replaceAll(" ", "%20");
     const link = `https://geocoding-api.open-meteo.com/v1/search?name=${correctSearch}&count=10&language=en&format=json`
+    console.log(link)
     const response = await fetch(
         link,
         {

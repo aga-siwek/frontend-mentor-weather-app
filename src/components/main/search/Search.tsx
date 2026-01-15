@@ -9,7 +9,7 @@ function Search() {
     const {onSearchPlace} = useMainContext()
     const [tempPlace, setTempPlace] = useState<string>("");
 
-    const handlePlaceChange = (e): void => {
+    const handlePlaceChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setTempPlace(e.target.value)
     }
     const handleSearch = ():void => {

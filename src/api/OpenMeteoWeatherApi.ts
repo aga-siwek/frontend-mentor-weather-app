@@ -22,6 +22,10 @@ export type OpenMeteoWeatherApiUtils = {
         relative_humidity_2m: number;
         apparent_temperature: number;
         precipitation: number;
+        weather_code: number;
+        is_day: boolean;
+        wind_speed_10m: number
+
     };
 
     hourly_units: {
@@ -40,6 +44,9 @@ export type OpenMeteoWeatherApiUtils = {
         apparent_temperature: number[];
         precipitation_probability: number[];
         wind_speed_10m: number[];
+        weather_code: number[];
+        is_day: boolean;
+
     };
 
     daily_units: {
@@ -52,8 +59,11 @@ export type OpenMeteoWeatherApiUtils = {
         time: string[];
         temperature_2m_max: number[];
         temperature_2m_min: number[];
+        precipitation_sum: number[];
+        weather_code: number[];
+
     };
-} | [];
+};
 
 interface ApiProps {
     onFailStatusChange: (status: boolean) => void;
@@ -76,6 +86,7 @@ async function OnSearchOpenMeteoWeather({
     } else {
         const data = await response.json();
         onFailStatusChange(false)
+        console.log(data)
         return data
     }
 }

@@ -9,7 +9,7 @@ import snowIcon from "../../../../assets/icon-snow.webp"
 import stormIcon from "../../../../assets/icon-storm.webp"
 import {useMainContext} from "../../../../hooks/useMainContext.ts";
 
-const monthsName = {
+const monthsName: { [key: number]: string } = {
     0: "Jan",
     1: "Feb",
     2: "Mar",
@@ -26,6 +26,12 @@ const monthsName = {
 
 function TodayMainInfo() {
     const {apiWeatherInfo, apiGeoInfo, measureType} = useMainContext()
+    console.log("api w info from main info", apiWeatherInfo)
+    if (apiWeatherInfo) {
+        console.log("Weather info", apiWeatherInfo, true)
+    }
+    else {console.log("Weather info", apiWeatherInfo, false)}
+
 
     const today = new Date()
     const dayName = today.toLocaleDateString('en-EN', {weekday: 'long'});
@@ -35,7 +41,7 @@ function TodayMainInfo() {
 
 
     const todayWeatherCodeCalculation = () => {
-        if (apiWeatherInfo) {
+        if (apiWeatherInfo?.current) {
             return (apiWeatherInfo.current.weather_code)
         } else {
             return 1000
@@ -43,7 +49,7 @@ function TodayMainInfo() {
     }
 
     const todayIsDayCalculation = () => {
-        if (apiWeatherInfo) {
+        if (apiWeatherInfo?.current) {
             return (apiWeatherInfo.current.is_day)
         } else {
             return 0
@@ -51,11 +57,11 @@ function TodayMainInfo() {
     }
 
     const todayTemperatureCalculation = () => {
-        if (apiWeatherInfo) {
+        if (apiWeatherInfo?.current) {
             if(measureType==="METRIC") {
                 const metricTemp = Math.round(apiWeatherInfo.current.temperature_2m)
                 return (metricTemp.toString()
-            )}
+                )}
             else if(measureType==="IMPERIAL") {
                 const metricTemp = apiWeatherInfo.current.temperature_2m
                 const imperialTemp = Math.round((metricTemp*1.8) + 32)

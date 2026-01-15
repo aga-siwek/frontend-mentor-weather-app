@@ -38,7 +38,7 @@ function HourlyDaysWindows() {
     const showDays = () =>
         Object.keys(weekDays).map((_, i) => (
             <div className={styles.hourly_forecast_box_day} onClick={() => onDayOfWeekChange(weekDays[daysOnWeek(i)])}>
-                <p key={i} className={styles.hourly_forecast_box_day_text}>{weekDays[daysOnWeek(i)]}</p>
+                <p key={`day on week ${i}`} className={styles.hourly_forecast_box_day_text}>{weekDays[daysOnWeek(i)]}</p>
             </div>
         ));
 

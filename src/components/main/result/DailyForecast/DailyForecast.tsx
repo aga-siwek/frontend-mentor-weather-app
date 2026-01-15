@@ -9,7 +9,7 @@ function DailyForecast() {
     const dayNumber = today.getDay();
 
     const weeklyMinTempCalculation = () => {
-        if (apiWeatherInfo) {
+        if (apiWeatherInfo?.daily) {
             return (apiWeatherInfo.daily.temperature_2m_min
             )
         } else {
@@ -18,7 +18,7 @@ function DailyForecast() {
     }
 
     const weeklyMaxTempCalculation = () => {
-        if (apiWeatherInfo) {
+        if (apiWeatherInfo?.daily) {
             return (apiWeatherInfo.daily.temperature_2m_max
             )
         } else {
@@ -28,7 +28,7 @@ function DailyForecast() {
 
     const weeklyPrecipitationCalculation
         = () => {
-        if (apiWeatherInfo) {
+        if (apiWeatherInfo?.daily) {
             return (apiWeatherInfo.daily.precipitation_sum
             )
         } else {
@@ -37,14 +37,12 @@ function DailyForecast() {
     }
 
     const weeklyWeatherCodeCalculation = () => {
-        if (apiWeatherInfo) {
+        if (apiWeatherInfo?.daily) {
             return (apiWeatherInfo.daily.weather_code)
         } else {
             return "-"
         }
     }
-
-
 
     const daysOnWeek = (i:number) => {
         const dailyDayNumber = dayNumber + i
@@ -58,8 +56,6 @@ function DailyForecast() {
     const weeklyMaxTemp = weeklyMaxTempCalculation()
     const weeklyPrecipitation = weeklyPrecipitationCalculation()
     const weeklyWeatherCode = weeklyWeatherCodeCalculation()
-
-
 
     const showBoxes = () => {
         if (weeklyMinTemp !== "-" && weeklyMaxTemp !== "-" && weeklyPrecipitation !== "-" && weeklyWeatherCode !== "-") {

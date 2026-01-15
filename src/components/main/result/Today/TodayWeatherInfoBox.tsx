@@ -1,6 +1,9 @@
 import styles from "./TodayWeatherInfoBox.module.css"
-
-function TodayWeatherInfoBox({boxHeader, boxResult}) {
+type TypeOfParams = {
+    boxHeader?: string;
+    boxResult?: string;
+}
+function TodayWeatherInfoBox({boxHeader, boxResult}: TypeOfParams) {
 
     return (
         <div className={styles.today_weather_info_box_container}>
