@@ -5,43 +5,25 @@ import Main from "./components/main/Main.tsx"
 import {MainContext, type MainContextType} from "./context/MainContext.ts"
 
 type MeasureType = "IMPERIAL" | "METRIC"
-type TempUnit = "CELCIUS" | "FAHRENHEIT";
-type SpeedUnit = "KM/H" | "MPH";
-type PrecipitationUnit = "MILLIMETERS" | "INCHES";
 type DayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 import OnSearchOpenMeteoWeather, {type OpenMeteoWeatherApiUtils} from "./api/OpenMeteoWeatherApi.ts"
 import onSearchOpenMeteoGeo, {type OpenMeteoGeoApiUtils} from "./api/OpenMeteoGeoApi.ts";
 
 function App() {
 
-    // const weekDays: { [key: number]: string }  = {
-    //     1: "Monday",
-    //     2: "Tuesday",
-    //     3: "Wednesday",
-    //     4: "Thursday",
-    //     5: "Friday",
-    //     6: "Saturday",
-    //     7: "Sunday"
-    // };
-
     const today = new Date();
     const dayNumber = today.getDay();
     const [measureType, setMeasureType] = useState<MeasureType>("METRIC");
-    const [tempMeasure, setTempMeasure] = useState<TempUnit>("CELCIUS");
-    const [windSpeedMeasure, setWindSpeedMeasure] = useState<SpeedUnit>("KM/H");
-    const [precipitation, setPrecipitation] = useState<PrecipitationUnit>("MILLIMETERS");
     const [searchPlace, setSearchPlace] = useState<string>();
-    const [hourlyForecast, setHourlyForecast] = useState<PrecipitationUnit>("MILLIMETERS");
     const [dayOfWeek, setDayOfWeek] = useState<DayOfWeek>(dayNumber);
     const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
     const [daysAreOpen, setDaysAreOpen] = useState<boolean>(false);
     const [apiWeatherInfo, setApiWeatherInfo] = useState<OpenMeteoWeatherApiUtils| null | undefined>()
     const [apiGeoInfo, setApiGeoInfo] = useState<OpenMeteoGeoApiUtils | null | undefined>()
-    const [failStatus, setFailStatus] = useState<boolean>(false);
     const [windowIsOpen, setWindowIsOpen] = useState<boolean>(false);
 
     const onFailStatusChange = (status: boolean) => {
-        setFailStatus(status);
+        // setFailStatus(status);
     }
 
     const onWindowClick = () => {
@@ -80,36 +62,29 @@ function App() {
         setMenuIsOpen(false)
     }
 
-    const onSearchPlace = async (place?: string): Promise<void> => {
+    const onSearchPlace = async (place?: string | undefined): Promise<void> => {
         setSearchPlace(place);
     }
 
     const getApiData = async () => {
         const dataOpenMeteoGeo = await onSearchOpenMeteoGeo({searchPlace, onFailStatusChange})
         if (!Object.keys(dataOpenMeteoGeo).includes("results")) {
-            setFailStatus(true)
             setApiWeatherInfo(undefined)
             setApiGeoInfo(undefined)
             return
         }
         setApiGeoInfo(dataOpenMeteoGeo)
-        const lat: string = dataOpenMeteoGeo.results[0].latitude.toString();
-        const lon: string = dataOpenMeteoGeo.results[0].longitude.toString();
-        const dataOpenMeteoWeather = await OnSearchOpenMeteoWeather({onFailStatusChange, lat, lon})
+        const lat: string | undefined = dataOpenMeteoGeo.results[0].latitude.toString();
+        const lon: string | undefined= dataOpenMeteoGeo.results[0].longitude.toString();
+        const dataOpenMeteoWeather = await OnSearchOpenMeteoWeather({lat, lon})
         await setApiWeatherInfo(dataOpenMeteoWeather)
     }
 
     const onSwitchMeasure = (measure: MeasureType): void => {
         if (measure === "IMPERIAL") {
             setMeasureType("METRIC");
-            setTempMeasure("FAHRENHEIT");
-            setWindSpeedMeasure("MPH")
-            setPrecipitation("INCHES");
         } else if (measure === "METRIC") {
             setMeasureType("IMPERIAL");
-            setTempMeasure("CELCIUS");
-            setWindSpeedMeasure("KM/H")
-            setPrecipitation("MILLIMETERS");
         }
         onSearchPlace(searchPlace)
     }

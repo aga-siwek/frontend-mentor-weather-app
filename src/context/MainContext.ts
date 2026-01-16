@@ -7,7 +7,7 @@ export type MainContextType = {
     onMenuClick: () => void;
     measureType: "IMPERIAL" | "METRIC";
     onSwitchMeasure: (measure: string) => void;
-    onSearchPlace:   (place: string) => Promise<void>;
+    onSearchPlace:   (place: string | undefined) => Promise<void>;
     apiWeatherInfo?: OpenMeteoWeatherApiUtils | undefined;
     apiGeoInfo?: OpenMeteoGeoApiUtils | undefined;
     onMenuClose: () => void;

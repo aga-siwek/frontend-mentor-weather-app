@@ -66,14 +66,12 @@ export type OpenMeteoWeatherApiUtils = {
 };
 
 interface ApiProps {
-    onFailStatusChange: (status: boolean) => void;
     lat: string;
     lon: string;
     measureType: string
 }
 
 async function OnSearchOpenMeteoWeather({
-                                            onFailStatusChange,
                                             lat,
                                             lon,
                                         }: ApiProps): Promise<OpenMeteoWeatherApiUtils> {
@@ -81,11 +79,9 @@ async function OnSearchOpenMeteoWeather({
     const response = await fetch(link);
 
     if (response.status === 404) {
-        onFailStatusChange(true)
         return []
     } else {
         const data = await response.json();
-        onFailStatusChange(false)
         console.log(data)
         return data
     }

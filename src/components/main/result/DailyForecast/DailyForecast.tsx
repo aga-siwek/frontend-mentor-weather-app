@@ -63,7 +63,7 @@ function DailyForecast() {
 
             return indices.map(i => (
                 <DailyForecastBox
-                    key={i}
+                    key={`daily forecast box ${i}`}
                     minTemp={weeklyMinTemp[i]}
                     maxTemp={weeklyMaxTemp[i]}
                     day={daysOnWeek(i)}

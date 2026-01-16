@@ -17,57 +17,26 @@ function HourlyForecast() {
         7: "Sunday"
     };
 
-    const weeklyHourlyPrecipitation
-        = () => {
-        if (apiWeatherInfo?.hourly) {
-            return (apiWeatherInfo.hourly.precipitation_probability
-            )
-        } else {
-            return
-        }
-    }
+    const weeklyHourlyTemp = (): number[] | undefined => {
+        return apiWeatherInfo?.hourly?.temperature_2m;
+    };
 
-    const weeklyHourlyWeatherCode
-        = () => {
-        if (apiWeatherInfo?.hourly) {
-            return (apiWeatherInfo.hourly.weather_code
+    const weeklyHourlyPrecipitation = (): number[] | undefined => {
+        return apiWeatherInfo?.hourly?.precipitation_probability;
+    };
 
-            )
-        } else {
-            return
-        }
-    }
+    const weeklyHourlyWeatherCode = (): number[] | undefined => {
+        return apiWeatherInfo?.hourly?.weather_code;
+    };
 
-    const weeklyHourlyIsDay : any
-        = () => {
-        if (apiWeatherInfo?.hourly) {
-            return (apiWeatherInfo.hourly.is_day
+    const weeklyHourlyIsDay = (): number[] | undefined => {
+        return apiWeatherInfo?.hourly?.is_day;
+    };
 
-            )
-        } else {
-            return
-        }
-    }
+    const weeklyHourlyTime = (): string[] | undefined => {
+        return apiWeatherInfo?.hourly?.time;
+    };
 
-    const weeklyHourlyTemp
-        = () => {
-        if (apiWeatherInfo?.hourly) {
-            return (apiWeatherInfo?.hourly?.temperature_2m
-            )
-        } else {
-            return
-        }
-    }
-
-    const weeklyHourlyTime
-        = () => {
-        if (apiWeatherInfo?.hourly) {
-            return (apiWeatherInfo.hourly.time
-            )
-        } else {
-            return
-        }
-    }
 
     const checkCurrentTime
         = () => {
@@ -79,12 +48,11 @@ function HourlyForecast() {
         }
     }
 
-    const allHourlyPrecipitation: number[] | undefined = weeklyHourlyPrecipitation()
-    const allHourlyTemp: number[] | string[] | undefined = weeklyHourlyTemp()
-    const allHourlyWeatherCode: number[] | undefined = weeklyHourlyWeatherCode()
-    const allHourlyIsDay: number[] | undefined = weeklyHourlyIsDay()
-    console.log("allHourlyIsDay", allHourlyIsDay)
-    const allHourlyTime: string[] | undefined = weeklyHourlyTime()
+    const allHourlyTemp = weeklyHourlyTemp();
+    const allHourlyPrecipitation = weeklyHourlyPrecipitation();
+    const allHourlyWeatherCode = weeklyHourlyWeatherCode();
+    const allHourlyIsDay = weeklyHourlyIsDay();
+    const allHourlyTime = weeklyHourlyTime();
     const today = new Date();
     const currentDayNumber = today.getDay();
     const currentTime = checkCurrentTime()
@@ -106,130 +74,79 @@ function HourlyForecast() {
     }
 
     const hours: number = 24
-    const dailyTempList: number[][] = []
-    const dailyPrecipitationList: number[][] = []
-    const dailyWeatherCodeList: number[][] = []
-    const dailyIsDayList: number[][] = []
-    const dailyTimeList: string[][] = []
+    const dailyTempList: number[][] = [];
+    const dailyPrecipitationList: number[][] = [];
+    const dailyWeatherCodeList: number[][] = [];
+    const dailyIsDayList: number[][] = [];
+    const dailyTimeList: string[][] = [];
 
-    const separateIntoDays = <T, >(myCurrentList: T[] | undefined, newList: T[][]) => {
+
+    const seperateIntoDays = <T,>(
+        myCurrentList: T[],
+        newList: T[][]
+    ): void => {
         if (myCurrentList && myCurrentList.length > 0) {
             for (let i = 0; i < myCurrentList.length; i += hours) {
                 newList.push(myCurrentList.slice(i, i + hours));
             }
         }
-    }
+    };
 
-    // const seperateIntoDays = <T,>(myCurrentList: T[], newList: T[][]): void => {
-    //     if (myCurrentList && myCurrentList.length > 0) {
-    //         for (let i = 0; i < myCurrentList.length; i += hours) {
-    //             newList.push(myCurrentList.slice(i, i + hours));
-    //         }
-    //     }
-    // };
+    Array.isArray(allHourlyTemp) &&
+    seperateIntoDays(allHourlyTemp, dailyTempList);
 
+    Array.isArray(allHourlyPrecipitation) &&
+    seperateIntoDays(allHourlyPrecipitation, dailyPrecipitationList);
 
-    separateIntoDays(allHourlyTemp, dailyTempList)
-    separateIntoDays(allHourlyPrecipitation, dailyPrecipitationList)
-    separateIntoDays(allHourlyWeatherCode, dailyWeatherCodeList)
-    separateIntoDays(allHourlyIsDay, dailyIsDayList)
-    separateIntoDays(allHourlyTime, dailyTimeList)
+    Array.isArray(allHourlyWeatherCode) &&
+    seperateIntoDays(allHourlyWeatherCode, dailyWeatherCodeList);
 
-    // const showHourlyResult = () => {
-    //     const dayIndex = daysDifference();
-    //     const temps = dailyTempList[dayIndex];
-    //     const weatherCodes = dailyWeatherCodeList[dayIndex];
-    //     const isDays = dailyIsDayList[dayIndex];
-    //     const times = dailyTimeList[dayIndex];
-    //     let showTodayTime = currentTime - 1
-    //
-    //     if (!Array.isArray(temps)) return null;
-    //     if (dayIndex === 0) {
-    //         const todayTemps = temps.slice(currentTime)
-    //
-    //         return todayTemps.map((temp: number, i: number) => {
-    //             const weatherCode: number = weatherCodes?.[i] ?? 0;
-    //             const isDay: boolean = isDays?.[i] ?? 0
-    //             showTodayTime += 1
-    //             return (
-    //                 <HourlyForecastBox
-    //                     key={i}
-    //                     hourlyTemp={temp}
-    //                     time={showTodayTime}
-    //                     weatherCode={weatherCode}
-    //                     isDay={isDay}
-    //                 />
-    //             );
-    //         });
-    //     }
-    //
-    //     return temps.map((temp: number, i: number) => {
-    //         const weatherCode: number = weatherCodes?.[i] ?? 0;
-    //         const isDay: boolean = isDays?.[i] ?? 0
-    //         const time = new Date(times[i]).getHours()
-    //         return (
-    //             <HourlyForecastBox
-    //                 key={i}
-    //                 hourlyTemp={temp}
-    //                 time={time}
-    //                 weatherCode={weatherCode}
-    //                 isDay={isDay}
-    //             />
-    //         );
-    //     });
-    // };
+    Array.isArray(allHourlyIsDay) &&
+    seperateIntoDays(allHourlyIsDay, dailyIsDayList);
+
+    Array.isArray(allHourlyTime) &&
+    seperateIntoDays(allHourlyTime, dailyTimeList);
+
 
     const showHourlyResult = () => {
         const dayIndex = daysDifference();
-
         const temps = dailyTempList[dayIndex];
+        const precs = dailyPrecipitationList[dayIndex];
         const weatherCodes = dailyWeatherCodeList[dayIndex];
         const isDays = dailyIsDayList[dayIndex];
         const times = dailyTimeList[dayIndex];
+        let showTodayTime = currentTime - 1
 
-        let showTodayTime = currentTime - 1;
-
-        if (
-            !Array.isArray(temps) ||
-            !Array.isArray(weatherCodes) ||
-            !Array.isArray(isDays) ||
-            !Array.isArray(times)
-        ) {
-            return null;
-        }
-
+        if (!Array.isArray(temps)) return null;
         if (dayIndex === 0) {
-            const todayTemps = temps.slice(currentTime);
+            const todayTemps: number[] = temps.slice(currentTime)
 
-            return todayTemps.map((temp: number, i: number) => {
+            return todayTemps.map((temp, i) => {
                 const index = i + currentTime;
-
-                showTodayTime += 1;
-
+                showTodayTime += 1
                 return (
                     <HourlyForecastBox
-                        key={index}
+                        key={`Hourly Forecast Box ${index}`}
                         hourlyTemp={temp}
                         time={showTodayTime}
-                        weatherCode={weatherCodes[index] ?? 0}
-                        isDay={isDays[index] ?? 0}
+                        weatherCode={weatherCodes?.[index] ?? 0}
+                        isDay={isDays?.[index] ?? 0}
                     />
                 );
             });
         }
 
-        return temps.map((temp: number, i: number) => {
-            const time = times[i]
+        return temps.map((temp:number, i:number) => {
+            const time = times?.[i]
                 ? new Date(times[i]).getHours()
                 : 0;
-
             return (
                 <HourlyForecastBox
-                    key={i}
+                    key={`Hourly Forecast Box ${i}`}
                     hourlyTemp={temp}
                     time={time}
-                    weatherCode={weatherCodes[i] ?? 0}
-                    isDay={isDays[i] ?? 0}
+                    weatherCode={weatherCodes?.[i] ?? 0}
+                    isDay={isDays?.[i] ?? 0}
                 />
             );
         });
