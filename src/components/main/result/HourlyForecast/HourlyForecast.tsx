@@ -29,7 +29,7 @@ function HourlyForecast() {
     return apiWeatherInfo?.hourly?.weather_code;
   };
 
-  const weeklyHourlyIsDay = (): number[] | undefined => {
+  const weeklyHourlyIsDay = (): boolean|number[] | undefined => {
     return apiWeatherInfo?.hourly?.is_day;
   };
 

@@ -73,11 +73,7 @@
     align-items: start;
     justify-content: start;
     scroll-behavior: smooth;
-
     scrollbar-width: thin;
     scrollbar-color: var(--color_3) var(--color_4);
-
   }
-
-
 }

@@ -5,7 +5,7 @@ import Main from "./components/main/Main.tsx";
 import { MainContext, type MainContextType } from "./context/MainContext.ts";
 
 type MeasureType = "IMPERIAL" | "METRIC";
-type DayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
+// type DayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 import OnSearchOpenMeteoWeather, {
   type OpenMeteoWeatherApiUtils,
 } from "./api/OpenMeteoWeatherApi.ts";
@@ -18,7 +18,7 @@ function App() {
   const dayNumber = today.getDay();
   const [measureType, setMeasureType] = useState<MeasureType>("METRIC");
   const [searchPlace, setSearchPlace] = useState<string>();
-  const [dayOfWeek, setDayOfWeek] = useState<DayOfWeek>(dayNumber);
+  const [dayOfWeek, setDayOfWeek] = useState<number>(dayNumber);
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const [daysAreOpen, setDaysAreOpen] = useState<boolean>(false);
   const [apiWeatherInfo, setApiWeatherInfo] = useState<

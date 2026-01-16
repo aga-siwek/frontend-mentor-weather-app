@@ -52,7 +52,7 @@ async function onSearchOpenMeteoGeo({
   });
   if (response.status === 404) {
     onFailStatusChange(true);
-    return {};
+    return;
   }
   const data: OpenMeteoGeoApiUtils = await response.json();
   onFailStatusChange(false);
