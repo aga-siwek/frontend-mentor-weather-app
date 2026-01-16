@@ -81,7 +81,7 @@ function HourlyForecast() {
     const dailyTimeList: string[][] = [];
 
 
-    const seperateIntoDays = <T,>(
+    const seperateIntoDays = <T, >(
         myCurrentList: T[],
         newList: T[][]
     ): void => {
@@ -92,26 +92,15 @@ function HourlyForecast() {
         }
     };
 
-    Array.isArray(allHourlyTemp) &&
     seperateIntoDays(allHourlyTemp, dailyTempList);
-
-    Array.isArray(allHourlyPrecipitation) &&
     seperateIntoDays(allHourlyPrecipitation, dailyPrecipitationList);
-
-    Array.isArray(allHourlyWeatherCode) &&
     seperateIntoDays(allHourlyWeatherCode, dailyWeatherCodeList);
-
-    Array.isArray(allHourlyIsDay) &&
     seperateIntoDays(allHourlyIsDay, dailyIsDayList);
-
-    Array.isArray(allHourlyTime) &&
     seperateIntoDays(allHourlyTime, dailyTimeList);
-
 
     const showHourlyResult = () => {
         const dayIndex = daysDifference();
         const temps = dailyTempList[dayIndex];
-        const precs = dailyPrecipitationList[dayIndex];
         const weatherCodes = dailyWeatherCodeList[dayIndex];
         const isDays = dailyIsDayList[dayIndex];
         const times = dailyTimeList[dayIndex];
@@ -136,7 +125,7 @@ function HourlyForecast() {
             });
         }
 
-        return temps.map((temp:number, i:number) => {
+        return temps.map((temp: number, i: number) => {
             const time = times?.[i]
                 ? new Date(times[i]).getHours()
                 : 0;
@@ -160,7 +149,6 @@ function HourlyForecast() {
                     <div className={styles.hourly_forecast_day_name}>{weekDays[dayOfWeek]}</div>
                     <img src={dropDownIcon} alt="dropDownIcon" className={styles.hourly_forecast_day_icon}/>
                 </div>
-
             </div>
             <div className={styles.hourly_forecast_boxes} onClick={() => closeWindow()}>{showHourlyResult()}</div>
             <HourlyDaysWindow/>
