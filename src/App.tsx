@@ -127,7 +127,6 @@ function App() {
   }, [searchPlace]);
   useEffect(() => {}, [dayOfWeek]);
 
-  console.log("window is open from app", windowIsOpen);
 
   return (
     <MainContext.Provider value={contextValue}>
