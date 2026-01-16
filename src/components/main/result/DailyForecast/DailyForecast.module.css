@@ -14,6 +14,7 @@
 .daily_forecast_boxes {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: calc(16rem / 16);
 }
@@ -36,4 +37,11 @@
 }
 
 @media (min-width: 1440px) {
+  .daily_forecast_container {
+    align-items: start;
+    justify-content: start;
+  }
+  .daily_forecast_header_text {
+    padding: calc(16rem / 16);
+  }
 }

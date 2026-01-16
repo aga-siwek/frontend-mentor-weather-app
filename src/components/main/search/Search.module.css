@@ -55,4 +55,7 @@
 }
 
 @media (min-width: 1440px) {
+  .search_container {
+    max-width: calc(656rem/16);
+  }
 }

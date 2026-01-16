@@ -67,4 +67,17 @@
 }
 
 @media (min-width: 1440px) {
+  .hourly_forecast_boxes {
+    height: calc(568rem / 16);
+    overflow-y: auto;
+    align-items: start;
+    justify-content: start;
+    scroll-behavior: smooth;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--color_3) var(--color_4);
+
+  }
+
+
 }

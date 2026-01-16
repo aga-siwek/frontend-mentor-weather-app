@@ -76,7 +76,7 @@ function HourlyForecast() {
   const dailyIsDayList: number[][] = [];
   const dailyTimeList: string[][] = [];
 
-  const seperateIntoDays = <T,>(myCurrentList: T[], newList: T[][]): void => {
+  const seperateIntoDays = (myCurrentList: any, newList:any): void => {
     if (myCurrentList && myCurrentList.length > 0) {
       for (let i = 0; i < myCurrentList.length; i += hours) {
         newList.push(myCurrentList.slice(i, i + hours));

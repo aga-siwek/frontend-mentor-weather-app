@@ -47,7 +47,7 @@
     background: var(--color_3);
     border: 1px solid var(--color_4);
     border-radius: 12px;
-    width: 12.5%;
+    width: 12%;
     padding: calc(10rem / 16) calc(16rem / 16);
   }
 }
