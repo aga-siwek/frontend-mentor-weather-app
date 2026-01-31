@@ -14,7 +14,7 @@
   border: 2px solid var(--color_4);
   width: calc(214rem / 16);
   top: 10px;
-  left: -90px;
+  left: -120px;
   z-index: 3;
 }
 .menu_show {
@@ -135,4 +135,10 @@
   font-size: calc(16rem / 16);
   width: calc(14rem / 16);
   height: calc(14rem / 16);
+}
+
+@media (min-width: 1440px) {
+  .menu_window_container {
+    left: -90px;
+  }
 }
