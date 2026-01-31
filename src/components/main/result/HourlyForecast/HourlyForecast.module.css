@@ -12,6 +12,7 @@
   width: 100%;
   position: relative;
   gap: calc(16rem / 16);
+  z-index: 0;
 }
 
 .hourly_forecast_header {

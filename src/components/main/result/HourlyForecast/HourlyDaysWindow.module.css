@@ -11,7 +11,7 @@
   position: absolute;
   left: 60%;
   top: 60px;
-  z-index: 1;
+  z-index: 0;
 }
 
 .hourly_forecast_box_day {
@@ -54,4 +54,7 @@
 }
 
 @media (min-width: 1440px) {
+  .hourly_forecast_box_container {
+    padding: calc(8rem / 16);
+  }
 }

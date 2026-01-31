@@ -40,6 +40,7 @@
   .daily_forecast_container {
     align-items: start;
     justify-content: start;
+
   }
   .daily_forecast_header_text {
     padding: calc(16rem / 16);

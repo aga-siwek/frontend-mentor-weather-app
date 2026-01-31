@@ -17,4 +17,7 @@
 }
 
 @media (min-width: 1440px) {
+  .main_container {
+    gap: calc(32rem / 16);
+  }
 }

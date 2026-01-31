@@ -40,10 +40,10 @@
     gap: 2%;
   }
   .result_container_first {
-    width: 65%;
+    width: calc(800rem/16);
   }
   .result_container_second {
-    width: 33%;
+    width: calc(372rem/16);
     margin: unset;
   }
 

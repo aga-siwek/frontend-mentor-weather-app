@@ -1,5 +1,6 @@
 .menu_window {
   position: fixed;
+  z-index: 3;
 }
 
 .menu_window_container {
@@ -12,9 +13,9 @@
   border-radius: 12px;
   border: 2px solid var(--color_4);
   width: calc(214rem / 16);
-  top: 7%;
-  left: -130px;
-  z-index: 2;
+  top: 10px;
+  left: -90px;
+  z-index: 3;
 }
 .menu_show {
   display: flex;
